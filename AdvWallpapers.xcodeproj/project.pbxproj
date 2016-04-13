@@ -9,11 +9,16 @@
 /* Begin PBXBuildFile section */
 		2648BC101CBD45ED00812512 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC0F1CBD45ED00812512 /* AppDelegate.m */; };
 		2648BC131CBD45ED00812512 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC121CBD45ED00812512 /* main.m */; };
-		2648BC161CBD45ED00812512 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC151CBD45ED00812512 /* ViewController.m */; };
 		2648BC181CBD45ED00812512 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2648BC171CBD45ED00812512 /* Assets.xcassets */; };
 		2648BC1B1CBD45ED00812512 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2648BC191CBD45ED00812512 /* Main.storyboard */; };
 		2648BC261CBD45ED00812512 /* AdvWallpapersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC251CBD45ED00812512 /* AdvWallpapersTests.m */; };
 		2648BC311CBD45ED00812512 /* AdvWallpapersUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC301CBD45ED00812512 /* AdvWallpapersUITests.m */; };
+		2648BC431CBD46A500812512 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC421CBD46A500812512 /* MainViewController.m */; };
+		2648BC491CBD472B00812512 /* image.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2648BC441CBD472B00812512 /* image.icns */; };
+		2648BC4F1CBD4C8500812512 /* CurrentDesktop.applescript in Resources */ = {isa = PBXBuildFile; fileRef = 2648BC481CBD472B00812512 /* CurrentDesktop.applescript */; };
+		2648BC511CBD4E4300812512 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2648BC501CBD4E4300812512 /* Config.plist */; };
+		2648BC541CBD500900812512 /* Slideshow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC531CBD500900812512 /* Slideshow.m */; };
+		2648BC561CBD659700812512 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 2648BC551CBD659700812512 /* TODO */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,8 +43,6 @@
 		2648BC0E1CBD45ED00812512 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2648BC0F1CBD45ED00812512 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2648BC121CBD45ED00812512 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		2648BC141CBD45ED00812512 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		2648BC151CBD45ED00812512 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		2648BC171CBD45ED00812512 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2648BC1A1CBD45ED00812512 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2648BC1C1CBD45ED00812512 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +52,14 @@
 		2648BC2C1CBD45ED00812512 /* AdvWallpapersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdvWallpapersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2648BC301CBD45ED00812512 /* AdvWallpapersUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdvWallpapersUITests.m; sourceTree = "<group>"; };
 		2648BC321CBD45ED00812512 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2648BC411CBD46A500812512 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		2648BC421CBD46A500812512 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		2648BC441CBD472B00812512 /* image.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = image.icns; sourceTree = "<group>"; };
+		2648BC481CBD472B00812512 /* CurrentDesktop.applescript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.applescript; path = CurrentDesktop.applescript; sourceTree = "<group>"; };
+		2648BC501CBD4E4300812512 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		2648BC521CBD500900812512 /* Slideshow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slideshow.h; sourceTree = "<group>"; };
+		2648BC531CBD500900812512 /* Slideshow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slideshow.m; sourceTree = "<group>"; };
+		2648BC551CBD659700812512 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,11 +112,15 @@
 			children = (
 				2648BC0E1CBD45ED00812512 /* AppDelegate.h */,
 				2648BC0F1CBD45ED00812512 /* AppDelegate.m */,
-				2648BC141CBD45ED00812512 /* ViewController.h */,
-				2648BC151CBD45ED00812512 /* ViewController.m */,
+				2648BC411CBD46A500812512 /* MainViewController.h */,
+				2648BC421CBD46A500812512 /* MainViewController.m */,
+				2648BC521CBD500900812512 /* Slideshow.h */,
+				2648BC531CBD500900812512 /* Slideshow.m */,
 				2648BC171CBD45ED00812512 /* Assets.xcassets */,
 				2648BC191CBD45ED00812512 /* Main.storyboard */,
 				2648BC1C1CBD45ED00812512 /* Info.plist */,
+				2648BC551CBD659700812512 /* TODO */,
+				2648BC4E1CBD47E500812512 /* Resources */,
 				2648BC111CBD45ED00812512 /* Supporting Files */,
 			);
 			path = AdvWallpapers;
@@ -135,6 +150,16 @@
 				2648BC321CBD45ED00812512 /* Info.plist */,
 			);
 			path = AdvWallpapersUITests;
+			sourceTree = "<group>";
+		};
+		2648BC4E1CBD47E500812512 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2648BC501CBD4E4300812512 /* Config.plist */,
+				2648BC481CBD472B00812512 /* CurrentDesktop.applescript */,
+				2648BC441CBD472B00812512 /* image.icns */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,8 +265,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2648BC4F1CBD4C8500812512 /* CurrentDesktop.applescript in Resources */,
+				2648BC491CBD472B00812512 /* image.icns in Resources */,
 				2648BC181CBD45ED00812512 /* Assets.xcassets in Resources */,
+				2648BC561CBD659700812512 /* TODO in Resources */,
 				2648BC1B1CBD45ED00812512 /* Main.storyboard in Resources */,
+				2648BC511CBD4E4300812512 /* Config.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,9 +295,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2648BC161CBD45ED00812512 /* ViewController.m in Sources */,
+				2648BC541CBD500900812512 /* Slideshow.m in Sources */,
 				2648BC131CBD45ED00812512 /* main.m in Sources */,
 				2648BC101CBD45ED00812512 /* AppDelegate.m in Sources */,
+				2648BC431CBD46A500812512 /* MainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +519,7 @@
 				2648BC371CBD45ED00812512 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2648BC381CBD45ED00812512 /* Build configuration list for PBXNativeTarget "AdvWallpapersTests" */ = {
 			isa = XCConfigurationList;
@@ -497,6 +528,7 @@
 				2648BC3A1CBD45ED00812512 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2648BC3B1CBD45ED00812512 /* Build configuration list for PBXNativeTarget "AdvWallpapersUITests" */ = {
 			isa = XCConfigurationList;
@@ -505,6 +537,7 @@
 				2648BC3D1CBD45ED00812512 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
