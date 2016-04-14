@@ -77,5 +77,10 @@
     [self setNeedsDisplay:YES];
 }
 
+-(NSRect)globalRect
+{
+    NSRect frame = [self frame];
+    return [self.window convertRectToScreen:frame];
+}
 
 @end

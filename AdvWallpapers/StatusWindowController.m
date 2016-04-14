@@ -15,6 +15,9 @@
 #define POPUP_HEIGHT 122
 #define PANEL_WIDTH 280
 #define MENU_ANIMATION_DURATION .1
+#define ARROW_WIDTH 12
+#define ARROW_HEIGHT 8
+
 
 @interface StatusWindowController ()
 
@@ -40,6 +43,10 @@
         [statusView setTarget:self]; 
         [statusView setNeedsDisplay:YES];
         
+        // hide the title bar
+        [[self window] setTitleVisibility:NSWindowTitleHidden];
+        [[self window] setTitlebarAppearsTransparent:YES]; 
+
     }
     return self;
 }
@@ -57,31 +64,27 @@
 
 - (void)openPanel
 {
-    // textfield
-    NSRect textRect = NSMakeRect(0.0, 0.0, 30, 20);
-    NSTextField *textfield = [[NSTextField alloc] initWithFrame:textRect];
-    [textfield setStringValue:@"SS"];
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    //    NSLog(@"%@", windowController.contentViewController);
-    
+    // some config
     NSTimeInterval openDuration = OPEN_DURATION;
-#define ARROW_WIDTH 12
-#define ARROW_HEIGHT 8
     
-    
-    //    NSLog(@"the statusview is %@", statusItem.view);
-    //    NSLog(@"%f", statusItem.view.frame.size.width);
+    // the status rect
+    NSRect statusviewrect = statusView.frame;
+    NSLog(@"%f,%f %f,%f", statusviewrect.origin.x, statusviewrect.origin.y,
+          statusviewrect.size.width, statusviewrect.size.height);
+
     NSWindow *panel = [self window];
-    
-    
-    // TODO: get the status rect
-    
     NSRect statusRect = [self statusRectForWindow:panel];
+    NSLog(@"%f,%f %f,%f", statusRect.origin.x, statusRect.origin.y,
+          statusRect.size.width, statusRect.size.height);
     
+    // the panel of this window
     
     [panel setAlphaValue:0];
     [panel setFrame:statusRect display:YES];
     [panel makeKeyAndOrderFront:nil];
+
     
     /* new panel */
     NSRect screenRect = [[[NSScreen screens] objectAtIndex:0] frame];
@@ -91,8 +94,8 @@
     if (NSMaxX(panelRect) > (NSMaxX(screenRect) - ARROW_HEIGHT))
         panelRect.origin.x -= NSMaxX(panelRect) - (NSMaxX(screenRect) - ARROW_HEIGHT);
     
-    //    panelRect.origin.x = roundf(NSMidX(statusRect) - NSWidth(panelRect) / 2);
-    //    panelRect.origin.y = NSMaxY(statusRect) - NSHeight(panelRect);
+    panelRect.origin.x = roundf(NSMidX(statusRect) - NSWidth(panelRect) / 2);
+    panelRect.origin.y = NSMaxY(statusRect) - NSHeight(panelRect);
     
     [NSAnimationContext beginGrouping];
     [[NSAnimationContext currentContext] setDuration:openDuration];
@@ -104,6 +107,18 @@
 }
 - (IBAction)togglePanel:(id)sender {
     NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    // TODO: check if panel open or close
+    BOOL alreadyOpen = false;
+    if (alreadyOpen)
+    {
+        
+    }
+    else
+    {
+        
+    }
+    [self openPanel];
 }
 
 - (NSRect)statusRectForWindow:(NSWindow *)window
@@ -117,11 +132,11 @@
 //        statusItemView = [self.delegate statusItemViewForPanelController:self];
 //    }
 //    
-//    if (statusItemView)
-//    {
-//        statusRect = statusItemView.globalRect;
-//        statusRect.origin.y = NSMinY(statusRect) - NSHeight(statusRect);
-//    }
+    if (statusView)
+    {
+        statusRect = statusView.globalRect;
+        statusRect.origin.y = NSMinY(statusRect) - NSHeight(statusRect);
+    }
 //    //    else
 //    //    {
 //    //        statusRect.size = NSMakeSize(STATUS_ITEM_VIEW_WIDTH, [[NSStatusBar systemStatusBar] thickness]);

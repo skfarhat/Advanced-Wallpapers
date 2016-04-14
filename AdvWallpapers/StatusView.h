@@ -23,5 +23,6 @@
 @property (nonatomic, setter = setHighlighted:) BOOL isHighlighted;
 @property (nonatomic) SEL action;
 @property (nonatomic, unsafe_unretained) id target;
+@property (nonatomic, readonly) NSRect globalRect;
 
 @end
