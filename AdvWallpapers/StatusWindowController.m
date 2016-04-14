@@ -45,7 +45,8 @@
         
         // hide the title bar
         [[self window] setTitleVisibility:NSWindowTitleHidden];
-        [[self window] setTitlebarAppearsTransparent:YES]; 
+        [[self window] setTitlebarAppearsTransparent:YES];
+        alreadyOpen = false; 
 
     }
     return self;
@@ -61,7 +62,7 @@
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
-
+#pragma mark -
 - (void)openPanel
 {
     NSLog(@"%s", __PRETTY_FUNCTION__);
@@ -71,16 +72,15 @@
     
     // the status rect
     NSRect statusviewrect = statusView.frame;
-    NSLog(@"%f,%f %f,%f", statusviewrect.origin.x, statusviewrect.origin.y,
-          statusviewrect.size.width, statusviewrect.size.height);
+//    NSLog(@"%f,%f %f,%f", statusviewrect.origin.x, statusviewrect.origin.y,
+//          statusviewrect.size.width, statusviewrect.size.height);
 
     NSWindow *panel = [self window];
     NSRect statusRect = [self statusRectForWindow:panel];
-    NSLog(@"%f,%f %f,%f", statusRect.origin.x, statusRect.origin.y,
-          statusRect.size.width, statusRect.size.height);
+//    NSLog(@"%f,%f %f,%f", statusRect.origin.x, statusRect.origin.y,
+//          statusRect.size.width, statusRect.size.height);
     
     // the panel of this window
-    
     [panel setAlphaValue:0];
     [panel setFrame:statusRect display:YES];
     [panel makeKeyAndOrderFront:nil];
@@ -105,24 +105,40 @@
     
     [panel performSelector:@selector(makeFirstResponder:) withObject:nil afterDelay:openDuration];
 }
+
+- (void)closePanel
+{
+    [NSAnimationContext beginGrouping];
+    [[NSAnimationContext currentContext] setDuration:CLOSE_DURATION];
+    [[[self window] animator] setAlphaValue:0];
+    [NSAnimationContext endGrouping];
+    
+    dispatch_after(dispatch_walltime(NULL, NSEC_PER_SEC * CLOSE_DURATION * 2), dispatch_get_main_queue(), ^{
+        
+        [self.window orderOut:nil];
+    });
+}
+
 - (IBAction)togglePanel:(id)sender {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     
     // TODO: check if panel open or close
-    BOOL alreadyOpen = false;
     if (alreadyOpen)
     {
-        
+        [self closePanel];
     }
     else
     {
-        
+        [self openPanel];
     }
-    [self openPanel];
+    alreadyOpen = !alreadyOpen;
+    
 }
 
-- (NSRect)statusRectForWindow:(NSWindow *)window
-{
+#pragma mark -
+
+
+- (NSRect)statusRectForWindow:(NSWindow *)window {
     NSRect screenRect = [[[NSScreen screens] objectAtIndex:0] frame];
     NSRect statusRect = NSZeroRect;
     

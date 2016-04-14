@@ -11,6 +11,7 @@
 @interface StatusWindowController : NSWindowController {
     StatusView *statusView;
     NSStatusItem *statusItem;
+    BOOL alreadyOpen;
 }
 
 
