@@ -14,9 +14,13 @@
 
 @implementation AppDelegate
 
+// Status Stuff
+@synthesize statusController;
+
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
     
+    statusController = [[StatusWindowController alloc] initWithWindowNibName:@"StatusWindowController"];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

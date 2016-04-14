@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import "Slideshow.h"
 #import "StatusView.h"
-#import "StatusWindowController.h"
 
 @interface MainViewController : NSViewController {
     
@@ -27,12 +26,6 @@
     NSInteger index;
     
     NSArray<NSString*> *rotationStrings;
-    
-//    NSWindowController *windowController;
-    
-    StatusView *statusView; 
- 
-    
 }
 - (IBAction)togglePanel:(id)sender;
 
@@ -50,10 +43,5 @@
 @property (strong) IBOutlet NSTextField *minTextField;
 @property (strong) IBOutlet NSTextField *secTextField;
 @property (strong) IBOutlet NSTextField *pathLabel;
-
-// Status Stuff
-@property (strong, nonatomic) StatusWindowController *statusController;
-@property (strong, nonatomic) NSView *statusView;
-@property (strong, nonatomic) NSStatusItem *statusItem;
 
 @end

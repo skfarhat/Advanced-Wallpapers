@@ -8,13 +8,10 @@
 
 #import "StatusWindowController.h"
 
-
-
 #define OPEN_DURATION .15
 #define CLOSE_DURATION .1
 #define STATUS_ITEM_VIEW_WIDTH 24.0
 #define SEARCH_INSET 17
-
 #define POPUP_HEIGHT 122
 #define PANEL_WIDTH 280
 #define MENU_ANIMATION_DURATION .1
@@ -25,6 +22,27 @@
 
 @implementation StatusWindowController
 
+
+-(id) initWithWindowNibName:(NSString *)windowNibName
+{
+    self = [super initWithWindowNibName:windowNibName];
+    if (self) {
+        
+        NSImage *img = [NSImage imageNamed:@"instagram"];
+        
+        statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:STATUS_ITEM_VIEW_WIDTH];
+        [statusItem setHighlightMode:YES];
+        [statusItem setImage:img];
+        [statusItem setAction:@selector(togglePanel:)];
+        
+        statusView = [[StatusView alloc] initWithStatusItem:statusItem];
+        statusView.action = @selector(togglePanel:);
+        [statusView setTarget:self]; 
+        [statusView setNeedsDisplay:YES];
+        
+    }
+    return self;
+}
 - (void)windowDidLoad {
     [super windowDidLoad];
     
@@ -33,7 +51,7 @@
 
 - (void)windowDidResize:(NSNotification *)notification
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__); 
+    NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
 
@@ -51,8 +69,8 @@
 #define ARROW_HEIGHT 8
     
     
-//    NSLog(@"the statusview is %@", statusItem.view);
-//    NSLog(@"%f", statusItem.view.frame.size.width);
+    //    NSLog(@"the statusview is %@", statusItem.view);
+    //    NSLog(@"%f", statusItem.view.frame.size.width);
     NSWindow *panel = [self window];
     
     
@@ -84,30 +102,32 @@
     
     [panel performSelector:@selector(makeFirstResponder:) withObject:nil afterDelay:openDuration];
 }
-
+- (IBAction)togglePanel:(id)sender {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+}
 
 - (NSRect)statusRectForWindow:(NSWindow *)window
 {
     NSRect screenRect = [[[NSScreen screens] objectAtIndex:0] frame];
     NSRect statusRect = NSZeroRect;
     
-    StatusItemView *statusItemView = nil;
-    if ([self.delegate respondsToSelector:@selector(statusItemViewForPanelController:)])
-    {
-        statusItemView = [self.delegate statusItemViewForPanelController:self];
-    }
-    
-    if (statusItemView)
-    {
-        statusRect = statusItemView.globalRect;
-        statusRect.origin.y = NSMinY(statusRect) - NSHeight(statusRect);
-    }
-//    else
+//    StatusItemView *statusItemView = nil;
+//    if ([self.delegate respondsToSelector:@selector(statusItemViewForPanelController:)])
 //    {
-//        statusRect.size = NSMakeSize(STATUS_ITEM_VIEW_WIDTH, [[NSStatusBar systemStatusBar] thickness]);
-//        statusRect.origin.x = roundf((NSWidth(screenRect) - NSWidth(statusRect)) / 2);
-//        statusRect.origin.y = NSHeight(screenRect) - NSHeight(statusRect) * 2;
+//        statusItemView = [self.delegate statusItemViewForPanelController:self];
 //    }
+//    
+//    if (statusItemView)
+//    {
+//        statusRect = statusItemView.globalRect;
+//        statusRect.origin.y = NSMinY(statusRect) - NSHeight(statusRect);
+//    }
+//    //    else
+//    //    {
+//    //        statusRect.size = NSMakeSize(STATUS_ITEM_VIEW_WIDTH, [[NSStatusBar systemStatusBar] thickness]);
+//    //        statusRect.origin.x = roundf((NSWidth(screenRect) - NSWidth(statusRect)) / 2);
+//    //        statusRect.origin.y = NSHeight(screenRect) - NSHeight(statusRect) * 2;
+//    //    }
     return statusRect;
 }
 

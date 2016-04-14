@@ -32,10 +32,10 @@
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
-    [super drawRect:dirtyRect];
- 
-    
     NSLog(@"%s", __PRETTY_FUNCTION__);
+
+    [super drawRect:dirtyRect];
+
     // Set up dark mode for icon
     if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]  isEqual: @"Dark"])
     {
@@ -60,15 +60,12 @@
     NSPoint iconPoint = NSMakePoint(iconX, iconY);
     
     [icon drawAtPoint:iconPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-    
-    // Drawing code here.
 }
 
 #pragma mark Mouse tracking
 
 - (void)mouseDown:(NSEvent *)theEvent
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     [NSApp sendAction:self.action to:self.target from:self];
 }
 

@@ -7,8 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-@interface StatusWindowController : NSWindowController
+#import "StatusView.h"
+@interface StatusWindowController : NSWindowController {
+    StatusView *statusView;
+    NSStatusItem *statusItem;
+}
 
 
 -(void)openPanel;

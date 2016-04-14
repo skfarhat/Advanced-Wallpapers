@@ -7,8 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "StatusWindowController.h"
+#import "StatusView.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
+
+
+// Status Stuff
+@property (strong, nonatomic) StatusWindowController *statusController;
+
 
 @end
 
