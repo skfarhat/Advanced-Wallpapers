@@ -19,6 +19,10 @@
 		2648BC511CBD4E4300812512 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2648BC501CBD4E4300812512 /* Config.plist */; };
 		2648BC541CBD500900812512 /* Slideshow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC531CBD500900812512 /* Slideshow.m */; };
 		2648BC561CBD659700812512 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 2648BC551CBD659700812512 /* TODO */; };
+		2648BC5B1CBEB7E400812512 /* StatusPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2648BC5A1CBEB7E400812512 /* StatusPanel.xib */; };
+		2648BC5F1CBECFA500812512 /* StatusWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC5D1CBECFA500812512 /* StatusWindowController.m */; };
+		2648BC601CBECFA500812512 /* StatusWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2648BC5E1CBECFA500812512 /* StatusWindowController.xib */; };
+		2648BC641CBEDD3900812512 /* StatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC631CBEDD3900812512 /* StatusView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +64,12 @@
 		2648BC521CBD500900812512 /* Slideshow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slideshow.h; sourceTree = "<group>"; };
 		2648BC531CBD500900812512 /* Slideshow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slideshow.m; sourceTree = "<group>"; };
 		2648BC551CBD659700812512 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
+		2648BC5A1CBEB7E400812512 /* StatusPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusPanel.xib; sourceTree = "<group>"; };
+		2648BC5C1CBECFA500812512 /* StatusWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusWindowController.h; sourceTree = "<group>"; };
+		2648BC5D1CBECFA500812512 /* StatusWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusWindowController.m; sourceTree = "<group>"; };
+		2648BC5E1CBECFA500812512 /* StatusWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusWindowController.xib; sourceTree = "<group>"; };
+		2648BC621CBEDD3900812512 /* StatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusView.h; sourceTree = "<group>"; };
+		2648BC631CBEDD3900812512 /* StatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,8 +126,10 @@
 				2648BC421CBD46A500812512 /* MainViewController.m */,
 				2648BC521CBD500900812512 /* Slideshow.h */,
 				2648BC531CBD500900812512 /* Slideshow.m */,
+				2648BC611CBEDD2500812512 /* Status */,
 				2648BC171CBD45ED00812512 /* Assets.xcassets */,
 				2648BC191CBD45ED00812512 /* Main.storyboard */,
+				2648BC5A1CBEB7E400812512 /* StatusPanel.xib */,
 				2648BC1C1CBD45ED00812512 /* Info.plist */,
 				2648BC551CBD659700812512 /* TODO */,
 				2648BC4E1CBD47E500812512 /* Resources */,
@@ -160,6 +172,18 @@
 				2648BC441CBD472B00812512 /* image.icns */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		2648BC611CBEDD2500812512 /* Status */ = {
+			isa = PBXGroup;
+			children = (
+				2648BC5C1CBECFA500812512 /* StatusWindowController.h */,
+				2648BC5D1CBECFA500812512 /* StatusWindowController.m */,
+				2648BC5E1CBECFA500812512 /* StatusWindowController.xib */,
+				2648BC621CBEDD3900812512 /* StatusView.h */,
+				2648BC631CBEDD3900812512 /* StatusView.m */,
+			);
+			name = Status;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -268,6 +292,8 @@
 				2648BC4F1CBD4C8500812512 /* CurrentDesktop.applescript in Resources */,
 				2648BC491CBD472B00812512 /* image.icns in Resources */,
 				2648BC181CBD45ED00812512 /* Assets.xcassets in Resources */,
+				2648BC601CBECFA500812512 /* StatusWindowController.xib in Resources */,
+				2648BC5B1CBEB7E400812512 /* StatusPanel.xib in Resources */,
 				2648BC561CBD659700812512 /* TODO in Resources */,
 				2648BC1B1CBD45ED00812512 /* Main.storyboard in Resources */,
 				2648BC511CBD4E4300812512 /* Config.plist in Resources */,
@@ -297,6 +323,8 @@
 			files = (
 				2648BC541CBD500900812512 /* Slideshow.m in Sources */,
 				2648BC131CBD45ED00812512 /* main.m in Sources */,
+				2648BC641CBEDD3900812512 /* StatusView.m in Sources */,
+				2648BC5F1CBECFA500812512 /* StatusWindowController.m in Sources */,
 				2648BC101CBD45ED00812512 /* AppDelegate.m in Sources */,
 				2648BC431CBD46A500812512 /* MainViewController.m in Sources */,
 			);

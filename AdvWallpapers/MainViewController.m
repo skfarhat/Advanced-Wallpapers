@@ -20,8 +20,17 @@
 @synthesize rotationComboBox;
 @synthesize randomCheckbox;
 
+
+// Status Stuff
+@synthesize statusView;
+@synthesize statusItem;
+@synthesize statusController;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    statusController = [[StatusWindowController alloc] initWithWindowNibName:@"StatusWindowController"];
+    [self initStatus];
     
     // init OpenDialog
     openDlg = [NSOpenPanel openPanel];
@@ -48,6 +57,45 @@
     [self displayPreviousInterval];
     [rotationComboBox selectItemAtIndex:slideshow.getRotation];
     [randomCheckbox setState:slideshow.getRandom];
+}
+
+
+- (IBAction)togglePanel:(id)sender
+{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    [statusController openPanel];
+    // open or close panel ?
+//    [self openPanel];
+    
+}
+#pragma mark StatusBar
+
+-(void)initStatus {
+#define STATUS_ITEM_VIEW_WIDTH 24.0
+    
+    // status item
+    NSImage *img = [NSImage imageNamed:@"instagram"];
+    
+    statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:STATUS_ITEM_VIEW_WIDTH];
+    [statusItem setHighlightMode:YES];
+    [statusItem setImage:img];
+    [statusItem setAction:@selector(togglePanel:)];
+    
+    statusView = [[StatusView alloc] initWithStatusItem:statusItem];
+    statusView.action = @selector(togglePanel:); 
+    [statusView setNeedsDisplay:YES]; 
+    
+}
+
+- (NSRect)statusRectForWindow:(NSWindow *)window
+{
+    NSRect screenRect = [[[NSScreen screens] objectAtIndex:0] frame];
+    NSRect statusRect = NSZeroRect;
+    statusRect.size = NSMakeSize(STATUS_ITEM_VIEW_WIDTH, [[NSStatusBar systemStatusBar] thickness]);
+    statusRect.origin.x = roundf((NSWidth(screenRect) - NSWidth(statusRect)) / 2);
+    statusRect.origin.y = NSHeight(screenRect) - NSHeight(statusRect) * 2;
+    return statusRect;
 }
 
 -(NSInteger) getTimeInterval {
