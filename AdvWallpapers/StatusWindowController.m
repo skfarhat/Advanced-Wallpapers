@@ -187,6 +187,13 @@
     
     
 }
+- (IBAction)settingsButtonPressed:(id)sender {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    // tell app delegate to open the mainview controller
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"showMainViewController" object:nil userInfo:nil];
+}
 
 -(void)setSlideshow:(Slideshow *)slideshow1{
     slideshow = slideshow1;

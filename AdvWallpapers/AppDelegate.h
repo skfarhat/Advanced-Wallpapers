@@ -22,6 +22,6 @@
 
 @property (strong, nonatomic) MainViewController *mainViewController;
 @property (weak) NSWindow* window;
-
+@property (strong, nonatomic) NSWindowController *windowController; 
 @end
 

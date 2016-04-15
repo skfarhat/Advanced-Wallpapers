@@ -18,7 +18,6 @@
 		2648BC4F1CBD4C8500812512 /* CurrentDesktop.applescript in Resources */ = {isa = PBXBuildFile; fileRef = 2648BC481CBD472B00812512 /* CurrentDesktop.applescript */; };
 		2648BC511CBD4E4300812512 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2648BC501CBD4E4300812512 /* Config.plist */; };
 		2648BC541CBD500900812512 /* Slideshow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC531CBD500900812512 /* Slideshow.m */; };
-		2648BC561CBD659700812512 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = 2648BC551CBD659700812512 /* TODO */; };
 		2648BC5F1CBECFA500812512 /* StatusWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC5D1CBECFA500812512 /* StatusWindowController.m */; };
 		2648BC601CBECFA500812512 /* StatusWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2648BC5E1CBECFA500812512 /* StatusWindowController.xib */; };
 		2648BC641CBEDD3900812512 /* StatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC631CBEDD3900812512 /* StatusView.m */; };
@@ -298,7 +297,6 @@
 				2648BC491CBD472B00812512 /* image.icns in Resources */,
 				2648BC181CBD45ED00812512 /* Assets.xcassets in Resources */,
 				2648BC601CBECFA500812512 /* StatusWindowController.xib in Resources */,
-				2648BC561CBD659700812512 /* TODO in Resources */,
 				2648BC1B1CBD45ED00812512 /* Main.storyboard in Resources */,
 				2648BC511CBD4E4300812512 /* Config.plist in Resources */,
 			);
