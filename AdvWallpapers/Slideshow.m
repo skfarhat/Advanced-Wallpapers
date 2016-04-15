@@ -26,6 +26,7 @@
     rotation    = [plist valueForKey:KEY_LAST_ROTATION];
     path        = [plist valueForKey:KEY_LAST_DIRECTORY];
     
+    NSLog(@"%@-%@-%@-%@", random, seconds, rotation, path);
     return self;
 }
 
@@ -59,4 +60,8 @@
     return [random isEqualToString:@"true"];
 }
 
+-(NSString *)getPath {
+    return path;
+}
 @end
+

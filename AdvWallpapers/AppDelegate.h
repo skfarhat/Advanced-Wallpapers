@@ -8,14 +8,20 @@
 
 #import <Cocoa/Cocoa.h>
 #import "StatusWindowController.h"
+#import "MainViewController.h"
 #import "StatusView.h"
+#import "Slideshow.h"
+
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
-
 
 // Status Stuff
 @property (strong, nonatomic) StatusWindowController *statusController;
 
+@property (strong, nonatomic) Slideshow *slideshow;
+
+@property (strong, nonatomic) MainViewController *mainViewController;
+@property (weak) NSWindow* window;
 
 @end
 

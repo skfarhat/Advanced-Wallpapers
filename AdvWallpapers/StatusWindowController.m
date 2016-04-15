@@ -24,7 +24,7 @@
 @end
 
 @implementation StatusWindowController
-
+@synthesize slideshow;
 
 -(id) initWithWindowNibName:(NSString *)windowNibName
 {
@@ -139,27 +139,66 @@
 
 
 - (NSRect)statusRectForWindow:(NSWindow *)window {
-    NSRect screenRect = [[[NSScreen screens] objectAtIndex:0] frame];
     NSRect statusRect = NSZeroRect;
-    
-//    StatusItemView *statusItemView = nil;
-//    if ([self.delegate respondsToSelector:@selector(statusItemViewForPanelController:)])
-//    {
-//        statusItemView = [self.delegate statusItemViewForPanelController:self];
-//    }
-//    
     if (statusView)
     {
         statusRect = statusView.globalRect;
         statusRect.origin.y = NSMinY(statusRect) - NSHeight(statusRect);
     }
-//    //    else
-//    //    {
-//    //        statusRect.size = NSMakeSize(STATUS_ITEM_VIEW_WIDTH, [[NSStatusBar systemStatusBar] thickness]);
-//    //        statusRect.origin.x = roundf((NSWidth(screenRect) - NSWidth(statusRect)) / 2);
-//    //        statusRect.origin.y = NSHeight(screenRect) - NSHeight(statusRect) * 2;
-//    //    }
     return statusRect;
+}
+- (IBAction)prevImageButtonPressed:(id)sender {
+    if (index-- == 0) {
+        index = [filenames count] - 1;
+    }
+    
+    // set the image
+    NSString *imagePath = [NSString stringWithFormat:@"%@%@",
+                           slideshow.getPath, filenames[index]];
+    NSImage *image = [[NSImage alloc] initWithContentsOfFile:imagePath];
+    NSLog(@"the image is %@ and path is %@", image, imagePath);
+    [_imageView setImage:image];
+    
+}
+- (IBAction)nextImageButtonPressed:(id)sender {
+    if (index++ == [filenames count]) {
+        index = 0;
+    }
+    
+    // set the image
+    NSString *imagePath = [NSString stringWithFormat:@"%@/%@",
+                           slideshow.getPath, filenames[index]];
+    NSImage *image = [[NSImage alloc] initWithContentsOfFile:imagePath];
+    NSLog(@"the image is %@ and path is %@", image, imagePath);
+    [_imageView setImage:image];
+    
+}
+- (IBAction)applyButtonPressed:(id)sender {
+    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:@"SetDesktopPicture" ofType:@"applescript"];
+    NSString *contents = [NSString stringWithContentsOfFile:scriptPath encoding:
+                          NSUTF8StringEncoding error:nil];
+    NSString *fullImagePath = [NSString stringWithFormat:@"%@/%@", slideshow.getPath, filenames[index]];
+    NSString *s = [NSString stringWithFormat:contents, fullImagePath];
+    NSDictionary *errorDict;
+    NSAppleScript* scriptObject = [[NSAppleScript alloc] initWithSource:s];
+    [scriptObject executeAndReturnError: &errorDict];
+    
+    NSLog(@"%@", errorDict.description);
+    
+    
+}
+
+-(void)setSlideshow:(Slideshow *)slideshow1{
+    slideshow = slideshow1;
+    filenames = [[NSFileManager defaultManager]
+                 contentsOfDirectoryAtPath:[slideshow getPath]
+                 error:nil];
+    
+    filenames = [filenames filteredArrayUsingPredicate:
+                 [NSPredicate predicateWithFormat:@"(pathExtension IN %@)", @[@"jpg", @"png", @"JPG"]]];
+    
+    // TODO: refresh the view here
+    
 }
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "MainViewController.h"
-
+#import "AppDelegate.h"
 @interface MainViewController ()
 
 @end
@@ -20,9 +20,15 @@
 @synthesize rotationComboBox;
 @synthesize randomCheckbox;
 
+@synthesize slideshow;
 
 - (void)viewDidLoad {
+    NSLog(@"%s", __PRETTY_FUNCTION__); 
     [super viewDidLoad];
+    
+    // pass reference of self to app delegate
+    AppDelegate *delegate = (AppDelegate*)[NSApplication sharedApplication].delegate;
+    [delegate setMainViewController:self];
     
     // init OpenDialog
     openDlg = [NSOpenPanel openPanel];
@@ -42,8 +48,7 @@
     [rotationComboBox addItemsWithObjectValues:rotationStrings];
     if ([rotationStrings count] > 0)
         [rotationComboBox selectItemAtIndex:0];
-    
-    slideshow = [[Slideshow alloc] init];
+
 
     // update UI
     [self displayPreviousInterval];
@@ -188,6 +193,7 @@
     
     // save if no error
     if (errorDict == NULL) {
+        NSLog(@"wallpapersPath: %@", wallpapersPath);
         [slideshow save:wallpapersPath random:random seconds:seconds rotation:rotation];
     }
 }

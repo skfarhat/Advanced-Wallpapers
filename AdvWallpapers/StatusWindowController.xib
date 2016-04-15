@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="StatusWindowController">
             <connections>
+                <outlet property="imageView" destination="jZJ-Ar-Ko8" id="ZXi-2X-vzn"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -31,18 +32,34 @@
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="VN6-iM-EHQ"/>
                                     </imageView>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N3F-pa-ffA">
-                                        <rect key="frame" x="124" y="13" width="49" height="32"/>
+                                        <rect key="frame" x="124" y="27" width="49" height="32"/>
                                         <buttonCell key="cell" type="push" title="&gt;" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7qD-Qy-3yd">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="nextImageButtonPressed:" target="-2" id="Zq7-wu-qbe"/>
+                                        </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="scY-dZ-Hvj">
-                                        <rect key="frame" x="75" y="13" width="49" height="32"/>
+                                        <rect key="frame" x="75" y="27" width="49" height="32"/>
                                         <buttonCell key="cell" type="push" title="&lt;" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4sc-Ey-cMB">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="prevImageButtonPressed:" target="-2" id="bzL-xf-gs5"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N2H-Fu-BW6">
+                                        <rect key="frame" x="87" y="2" width="75" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Apply" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mlC-1e-fAS">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="applyButtonPressed:" target="-2" id="m1c-I6-Hdu"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </customView>

@@ -15,9 +15,6 @@
     // open dialog
     NSOpenPanel* openDlg;
 
-    
-    Slideshow *slideshow;
-    
     NSString *wallpapersPath;
     
     NSArray<NSString*> *filenames;
@@ -44,4 +41,5 @@
 @property (strong) IBOutlet NSTextField *secTextField;
 @property (strong) IBOutlet NSTextField *pathLabel;
 
+@property (strong, nonatomic) Slideshow *slideshow;
 @end

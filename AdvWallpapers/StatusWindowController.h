@@ -8,13 +8,24 @@
 
 #import <Cocoa/Cocoa.h>
 #import "StatusView.h"
+#import "Slideshow.h"
+
 @interface StatusWindowController : NSWindowController {
     StatusView *statusView;
     NSStatusItem *statusItem;
     BOOL alreadyOpen;
+    
+    // index to data
+    NSInteger index;
+    
+    // data
+    NSArray<NSString*> *filenames;
 }
 
+@property(nonatomic, strong) Slideshow *slideshow;
+@property (weak) IBOutlet NSImageView *imageView;
 
 -(void)openPanel;
+
 
 @end

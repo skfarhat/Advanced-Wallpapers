@@ -34,4 +34,8 @@
 
 /** */
 -(BOOL) getRandom;
+
+/** */ 
+-(NSString*) getPath;
+
 @end
