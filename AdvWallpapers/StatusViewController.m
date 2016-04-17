@@ -27,6 +27,7 @@
 @synthesize slideshow;
 @synthesize pathControl;
 @synthesize imageView;
+@synthesize statusMainView;
 
 -(id)initWithCoder:(NSCoder *)coder{
     NSLog(@"%s", __PRETTY_FUNCTION__);
@@ -93,6 +94,15 @@
             //            [self navigateToNextImage];
             break;
         }
+        case 27:
+        {
+            [self closePanel];
+            break;
+        }
+        default:
+        {
+            NSLog(@"key: %d", code);
+        }
     }
 }
 
@@ -129,7 +139,9 @@
     [[panel animator] setAlphaValue:1];
     [NSAnimationContext endGrouping];
     
-    [panel performSelector:@selector(makeFirstResponder:) withObject:nil afterDelay:openDuration];
+//    [panel performSelector:@selector(makeFirstResponder:) withObject:nil afterDelay:openDuration];
+//    
+    [self.view.window makeFirstResponder:statusMainView];
 }
 
 - (void)closePanel
@@ -143,10 +155,13 @@
         
         [self.view.window orderOut:nil];
     });
+    [self.view.window makeFirstResponder:nil]; 
 }
 
 - (IBAction)togglePanel:(id)sender {
     NSLog(@"%s", __PRETTY_FUNCTION__);
+//    [self.view.window makeKeyWindow];
+//    [self.view.window makeFirstResponder:statusView];
     
     if (alreadyOpen)
     {
@@ -188,6 +203,7 @@
     [imageView setImage:image];
 }
 - (IBAction)nextImageButtonPressed:(id)sender {
+    NSLog(@"firstResponder: %@", [self.view.window firstResponder]);
     if (index++ == [filenames count]) {
         index = 0;
     }

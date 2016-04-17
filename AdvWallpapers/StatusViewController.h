@@ -23,6 +23,7 @@
     // data
     NSArray<NSString*> *filenames;
 }
+@property (strong) IBOutlet StatusMainView *statusMainView;
 
 @property(nonatomic, strong) Slideshow *slideshow;
 @property (weak) IBOutlet NSImageView *imageView;

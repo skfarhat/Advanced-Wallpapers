@@ -875,7 +875,7 @@
         <scene sceneID="lLV-XG-IqH">
             <objects>
                 <windowController storyboardIdentifier="StatusWindowController" id="2eN-Go-Qwr" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="8Sh-Vw-ET0">
+                    <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="8Sh-Vw-ET0">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="249" width="480" height="270"/>
@@ -953,6 +953,7 @@
                     <connections>
                         <outlet property="imageView" destination="hYL-gI-q6u" id="TUW-sI-jA5"/>
                         <outlet property="pathControl" destination="zZp-GY-4Ug" id="I5P-1G-Cxk"/>
+                        <outlet property="statusMainView" destination="XS3-im-MM4" id="fxv-zV-FcT"/>
                     </connections>
                 </viewController>
                 <customObject id="tp7-7u-ilG" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
