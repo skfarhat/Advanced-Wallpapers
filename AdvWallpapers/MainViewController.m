@@ -15,8 +15,7 @@
 @implementation MainViewController
 
 @synthesize hoursTextField, secTextField, minTextField, daysTextField;
-@synthesize debugLabel, imageView, pathLabel;
-@synthesize scrollText, clipView, textView;
+@synthesize imageView, pathLabel;
 @synthesize rotationComboBox;
 @synthesize randomCheckbox;
 
@@ -25,11 +24,6 @@
 - (void)viewDidLoad {
     NSLog(@"%s", __PRETTY_FUNCTION__); 
     [super viewDidLoad];
-    
-    // pass reference of self to app delegate
-    AppDelegate *delegate = (AppDelegate*)[NSApplication sharedApplication].delegate;
-    [delegate setMainViewController:self];
-    
     // init OpenDialog
     openDlg = [NSOpenPanel openPanel];
     [openDlg setCanChooseFiles:NO];
@@ -49,11 +43,10 @@
     if ([rotationStrings count] > 0)
         [rotationComboBox selectItemAtIndex:0];
 
-
-    // update UI
-    [self displayPreviousInterval];
-    [rotationComboBox selectItemAtIndex:slideshow.getRotation];
-    [randomCheckbox setState:slideshow.getRandom];
+    
+    // pass reference of self to app delegate
+    AppDelegate *delegate = (AppDelegate*)[NSApplication sharedApplication].delegate;
+    [delegate setMainViewController:self];
 }
 
 -(NSInteger) getTimeInterval {
@@ -65,28 +58,21 @@
 }
 
 -(void) updateImageView {
+    
     if (filenames == NULL || [filenames count] < 1)
         return;
     
     /* update ImageView */
-    NSString *imgPath = [NSString stringWithFormat:@"%@%@", wallpapersPath, filenames[index]];
+    NSString *imgPath = [NSString stringWithFormat:@"%@/%@", slideshow.path, filenames[index]];
     NSImage *img = [[NSImage alloc] initWithContentsOfFile:imgPath];
     [imageView setImage:img];
-}
-
-
-/** debug method used as an alternative to NSLog() */
--(void) append:(NSString*)message {
-    [textView setString:
-     [NSString stringWithFormat:@"%@\n%@",
-      textView.string, message]];
 }
 
 /** loads previous time interval into the view's textfields
  * days, hours, seconds, minutes */
 -(void)displayPreviousInterval {
 
-    NSInteger totalSec = [slideshow getSeconds];
+    NSInteger totalSec = slideshow.seconds.integerValue;
     
     const NSInteger SEC_PER_MIN = 60;
     const NSInteger SEC_PER_HOUR = 3600;
@@ -106,30 +92,30 @@
     [daysTextField setStringValue:@(days).stringValue];
 }
 
-/**
- * 1- updates filenames which is an array of png and jpg files from the given
- *     path
- * 2- update & save plist file with the last images directory path
- */
--(void) setWallpapersPath:(NSString*)newPath {
-    
-    if (newPath == NULL || [newPath length] == 0)
-        [pathLabel setStringValue:@"Not set"];
-
-    else
-    {
-        wallpapersPath = newPath;
-        [pathLabel setStringValue:wallpapersPath];
-        
-        /* get all files from the selected directory path, then filter it leaving
-         * only jpg and png files */
-        filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:wallpapersPath error:nil];
-        filenames = [filenames filteredArrayUsingPredicate:
-                     [NSPredicate predicateWithFormat:@"(pathExtension IN %@)", @[@"jpg", @"png", @"JPG"]]];
-        
-        [self updateImageView];
-    }
-}
+///**
+// * 1- updates filenames which is an array of png and jpg files from the given
+// *     path
+// * 2- update & save plist file with the last images directory path
+// */
+//-(void) setWallpapersPath:(NSString*)newPath {
+//    
+//    if (newPath == NULL || [newPath length] == 0)
+//        [pathLabel setStringValue:@"Not set"];
+//
+//    else
+//    {
+//        wallpapersPath = newPath;
+//        [pathLabel setStringValue:wallpapersPath];
+//        
+//        /* get all files from the selected directory path, then filter it leaving
+//         * only jpg and png files */
+//        filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:wallpapersPath error:nil];
+//        filenames = [filenames filteredArrayUsingPredicate:
+//                     [NSPredicate predicateWithFormat:@"(pathExtension IN %@)", @[@"jpg", @"png", @"JPG"]]];
+//        
+//        [self updateImageView];
+//    }
+//}
 
 #pragma mark User Interface
 
@@ -139,7 +125,8 @@
     if ([openDlg runModal] == NSModalResponseOK && [[openDlg URLs] count] > 0)
     {
         NSString *filename = [openDlg URLs][0].path;
-        [self setWallpapersPath:filename];
+        [slideshow setPath:filename];
+//        [self setWallpapersPath:filename];
     }
 }
 
@@ -148,7 +135,8 @@
     if (++index == [filenames count])
         index = 0;
     
-    [self updateImageView];
+    [self refresh];
+//    [self updateImageView];
 }
 
 -(IBAction)prevImagePressed:(id)sender {
@@ -156,7 +144,7 @@
     if (--index < 0)
         index = [filenames count] - 1;
     
-    [self updateImageView];
+    [self refresh];
 }
 #pragma mark Save
 
@@ -179,10 +167,10 @@
     NSAssert(contents != NULL, @"contents can't be null...");
     
     NSString *s = [NSString stringWithFormat:contents,
-                   @"", rotation,
-                   @"", random,
-                   @"", wallpapersPath,
-                   @"", seconds];
+                   @"", slideshow.rotation,
+                   @"", slideshow.random,
+                   @"", slideshow.path,
+                   @"", slideshow.seconds];
     
     // execute script
     NSDictionary *errorDict;
@@ -193,9 +181,37 @@
     
     // save if no error
     if (errorDict == NULL) {
-        NSLog(@"wallpapersPath: %@", wallpapersPath);
-        [slideshow save:wallpapersPath random:random seconds:seconds rotation:rotation];
+        NSLog(@"wallpapersPath: %@", slideshow.path);
+        [slideshow setRandom:random];
+        [slideshow setSeconds:seconds];
+        [slideshow setRotation:rotation];
+        [slideshow save];
     }
 }
 
+-(void)refresh {
+    if (!slideshow) return;
+    
+    // get all files from the selected directory path, then filter it leaving
+    // only jpg and png files
+    filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:slideshow.path error:nil];
+    filenames = [filenames filteredArrayUsingPredicate:
+                 [NSPredicate predicateWithFormat:@"(pathExtension IN %@)", @[@"jpg", @"png", @"JPG"]]];
+
+    
+    [self updateImageView];
+    
+    if (slideshow.path)
+        [pathLabel setStringValue:slideshow.path];
+    if (slideshow.rotation)
+        [rotationComboBox selectItemAtIndex:slideshow.rotation.integerValue];
+    if (slideshow.random)
+        [randomCheckbox setState:slideshow.random.integerValue];
+}
+
+-(void)setSlideshow:(Slideshow *)slideshow1{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    slideshow = slideshow1;
+    [self refresh];
+}
 @end

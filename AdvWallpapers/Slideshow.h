@@ -11,32 +11,15 @@
 @interface Slideshow : NSObject {
     NSString *plistPath; 
     NSMutableDictionary *plist;
-
-    
-    NSString *seconds;
-    NSString *path;
-    NSString *random;
-    NSString *rotation;
 }
 
-/** */ 
+@property (nonnull, strong) NSString *path ;
+@property (nonnull, strong) NSString *rotation;
+@property (nonnull, strong) NSString *random;
+@property (nonnull, strong) NSString *seconds;
+
+/** */
 -(Slideshow*)init;
 
-@property (nonnull, strong) NSString *path ;
-
 -(void) save;
-
-/** */
--(void) save:(NSString* _Nullable)path random:(NSString*)random
-     seconds:(NSString*)seconds rotation:(NSString*)rotation;
-
-/** */
--(NSInteger)getSeconds;
-
-/** */
--(NSInteger)getRotation;
-
-/** */
--(BOOL) getRandom;
-
 @end

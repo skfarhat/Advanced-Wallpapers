@@ -18,6 +18,10 @@
 @implementation Slideshow
 
 @synthesize path;
+@synthesize rotation;
+@synthesize random;
+@synthesize seconds;
+
 
 -(Slideshow*)init {
     plistPath   = [[NSBundle mainBundle] pathForResource:@"Config" ofType:@"plist"];
@@ -53,19 +57,6 @@
 -(void) save {
     return [self save:path random:random seconds:seconds rotation:rotation];
 }
-
--(NSInteger)getSeconds {
-    return seconds.integerValue;
-}
-
--(NSInteger)getRotation {
-    return rotation.integerValue; 
-}
-
--(BOOL)getRandom {
-    return [random isEqualToString:@"true"];
-}
-
 
 @end
 

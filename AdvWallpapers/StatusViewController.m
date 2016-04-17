@@ -239,7 +239,9 @@
 
 - (IBAction)settingsButtonPressed:(id)sender {
     // tell app delegate to open the mainview controller
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"showMainViewController" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"showMainViewController"
+                                                        object:nil userInfo:slideshow];
+    [self closePanel]; 
 }
 
 -(void)setSlideshow:(Slideshow *)slideshow1{
