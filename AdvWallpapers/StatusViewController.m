@@ -68,7 +68,6 @@
     
 }
 -(void)keyDown:(NSEvent *)theEvent{
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     NSString*   const   character   =   [theEvent charactersIgnoringModifiers];
     unichar     const   code        =   [character characterAtIndex:0];
     
@@ -195,7 +194,7 @@
     [imageView setImage:image];
 }
 - (IBAction)nextImageButtonPressed:(id)sender {
-    if (index++ == [filenames count]) {
+    if (index++ == [filenames count] - 1) {
         index = 0;
     }
     
@@ -234,7 +233,7 @@
     NSURL *url = [NSURL URLWithString:slideshow.getPath];
     [pathControl setURL:url];
     // TODO: refresh the view here
-    
+    [self refresh];
 }
 
 /** returns the fullpath to the currently selected image */
