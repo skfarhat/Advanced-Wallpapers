@@ -30,10 +30,12 @@
 @synthesize statusMainView;
 
 -(id)initWithCoder:(NSCoder *)coder{
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+
     self  = [super initWithCoder: coder];
     if (self)
     {
+        IMAGE_EXTENSIONS = @[@"jpg", @"JPG", @"jpeg", @"JPEG", @"png", @"PNG", @"BMP", @"bmp",
+                             @"tiff", @"TIFF"];
         NSImage *img = [NSImage imageNamed:@"instagram"];
         
         statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:STATUS_ITEM_VIEW_WIDTH];
@@ -62,9 +64,9 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    
-    StatusMainView *view = (StatusMainView*) self.view;
-    [view setKeyDelegate:self];
+
+    // TODO: might be unnecessary
+    [statusMainView setKeyDelegate:self];
     
 }
 - (void)flagsChanged:(NSEvent *)theEvent {
@@ -122,13 +124,14 @@
 - (void)openPanel
 {
     NSLog(@"%s", __PRETTY_FUNCTION__);
+    CGFloat width =  self.view.frame.size.width;
+    CGFloat height = self.view.frame.size.height;
     
     // some config
     NSTimeInterval openDuration = OPEN_DURATION;
     
     NSWindow *panel = [[self view] window];
     NSRect statusRect = [self statusRectForWindow:panel];
-    
     // the panel of this window
     [panel setAlphaValue:0];
     [panel setFrame:statusRect display:YES];
@@ -137,8 +140,9 @@
     // new panel
     NSRect screenRect = [[[NSScreen screens] objectAtIndex:0] frame];
     NSRect panelRect = [panel frame];
-    panelRect.size.width = 300.0f;
-    panelRect.size.height = 400.0f;
+    
+    panelRect.size.width = width;
+    panelRect.size.height = height;
     if (NSMaxX(panelRect) > (NSMaxX(screenRect) - ARROW_HEIGHT))
         panelRect.origin.x -= NSMaxX(panelRect) - (NSMaxX(screenRect) - ARROW_HEIGHT);
     
@@ -151,14 +155,11 @@
     [[panel animator] setAlphaValue:1];
     [NSAnimationContext endGrouping];
     
-//    [panel performSelector:@selector(makeFirstResponder:) withObject:nil afterDelay:openDuration];
-//    
     [self.view.window makeFirstResponder:statusMainView];
 }
 
 - (void)closePanel
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     [NSAnimationContext beginGrouping];
     [[NSAnimationContext currentContext] setDuration:CLOSE_DURATION];
     [[[[self view] window] animator] setAlphaValue:0];
@@ -194,11 +195,20 @@
 }
 
 -(void)refresh {
-    // set the image
+    filenames = [[NSFileManager defaultManager]
+                 contentsOfDirectoryAtPath:slideshow.path
+                 error:nil];
+    filenames = [filenames filteredArrayUsingPredicate:
+                 [NSPredicate predicateWithFormat:@"(pathExtension IN %@)", IMAGE_EXTENSIONS]];
+    
+    // update imageview
     NSString *imagePath = [NSString stringWithFormat:@"%@/%@",
                            slideshow.path, filenames[index]];
-    NSImage *image = [[NSImage alloc] initWithContentsOfFile:imagePath];
+    NSImage *image =[[NSImage alloc] initWithContentsOfFile:imagePath];
     [imageView setImage:image];
+    
+    // update path control
+    [pathControl setURL:[NSURL URLWithString:slideshow.path]];
 }
 
 - (IBAction)prevImageButtonPressed:(id)sender {
@@ -225,30 +235,15 @@
     NSDictionary *errorDict;
     NSAppleScript* scriptObject = [[NSAppleScript alloc] initWithSource:s];
     [scriptObject executeAndReturnError: &errorDict];
-    
-    NSLog(@"%@", errorDict.description);
 }
 
 - (IBAction)settingsButtonPressed:(id)sender {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    
     // tell app delegate to open the mainview controller
     [[NSNotificationCenter defaultCenter] postNotificationName:@"showMainViewController" object:nil userInfo:nil];
 }
 
 -(void)setSlideshow:(Slideshow *)slideshow1{
     slideshow = slideshow1;
-    filenames = [[NSFileManager defaultManager]
-                 contentsOfDirectoryAtPath:slideshow.path
-                 error:nil];
-    
-    filenames = [filenames filteredArrayUsingPredicate:
-                 [NSPredicate predicateWithFormat:@"(pathExtension IN %@)", @[@"jpg", @"png", @"JPG"]]];
-    
-    
-    NSURL *url = [NSURL URLWithString:slideshow.path];
-    [pathControl setURL:url];
-    // TODO: refresh the view here
     [self refresh];
 }
 
@@ -262,11 +257,9 @@
 
 
 -(BOOL)pathControl:(NSPathControl *)pathControl acceptDrop:(id<NSDraggingInfo>)info{
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     return YES;
 }
 - (IBAction)pathControlClicked:(id)sender {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     NSURL *url = [pathControl objectValue];
     [slideshow setPath:url.path];
     [slideshow save];

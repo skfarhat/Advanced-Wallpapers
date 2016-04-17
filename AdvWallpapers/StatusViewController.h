@@ -13,6 +13,8 @@
 #import "StatusMainView.h"
 
 @interface StatusViewController : NSViewController <KeyDelegate, NSPathControlDelegate> {
+    
+    const NSArray *IMAGE_EXTENSIONS;
     StatusView *statusView; 
     NSStatusItem *statusItem;
     BOOL alreadyOpen;
