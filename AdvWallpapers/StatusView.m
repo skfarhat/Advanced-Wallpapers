@@ -13,33 +13,17 @@
 @synthesize image;
 @synthesize action;
 @synthesize target;
+@synthesize statusItem;
 
--(id)initWithStatusItem:(NSStatusItem*) item {
-
-    CGFloat itemWidth = [item length];
-
-    CGFloat itemHeight = [[NSStatusBar systemStatusBar] thickness];
-    NSRect itemRect = NSMakeRect(0.0, 0.0, itemWidth, itemHeight);
-
-    
-    self = [super initWithFrame:itemRect];
-    if (self)
-    {
-        statusItem = item;
-        statusItem.view = self;
-    }
-    return self;
+-(BOOL)acceptsFirstResponder{
+    return YES; 
 }
-
 - (void)drawRect:(NSRect)dirtyRect {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-
     [super drawRect:dirtyRect];
 
     // Set up dark mode for icon
     if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"]  isEqual: @"Dark"])
     {
-        
         self.image = [NSImage imageNamed:@"StatusHighlighted"];
     }
     else
@@ -64,6 +48,10 @@
 
 #pragma mark Mouse tracking
 
+//-(void)keyDown:(NSEvent *)theEvent{
+//    NSLog(@"%s", __PRETTY_FUNCTION__); 
+//}
+
 - (void)mouseDown:(NSEvent *)theEvent
 {
     [NSApp sendAction:self.action to:self.target from:self];
@@ -81,6 +69,11 @@
 {
     NSRect frame = [self frame];
     return [self.window convertRectToScreen:frame];
+}
+-(void)setStatusItem:(NSStatusItem *)statusItem1{
+    NSLog(@"%s", __PRETTY_FUNCTION__); 
+    statusItem = statusItem1;
+    statusItem.view = self;
 }
 
 @end

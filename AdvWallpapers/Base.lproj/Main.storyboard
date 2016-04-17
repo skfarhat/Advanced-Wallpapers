@@ -871,5 +871,96 @@
             </objects>
             <point key="canvasLocation" x="75.5" y="763"/>
         </scene>
+        <!--Window Controller-->
+        <scene sceneID="lLV-XG-IqH">
+            <objects>
+                <windowController storyboardIdentifier="StatusWindowController" id="2eN-Go-Qwr" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="8Sh-Vw-ET0">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="196" y="249" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
+                    </window>
+                    <connections>
+                        <segue destination="PSJ-O0-fq3" kind="relationship" relationship="window.shadowedContentViewController" id="4KA-dd-QX1"/>
+                    </connections>
+                </windowController>
+                <customObject id="D4A-L1-tg7" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-170" y="1229"/>
+        </scene>
+        <!--Status View Controller-->
+        <scene sceneID="Qjd-IS-dIc">
+            <objects>
+                <viewController storyboardIdentifier="StatusViewController" id="PSJ-O0-fq3" customClass="StatusViewController" sceneMemberID="viewController">
+                    <view key="view" id="XS3-im-MM4" customClass="StatusMainView">
+                        <rect key="frame" x="0.0" y="0.0" width="248" height="380"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hYL-gI-q6u">
+                                <rect key="frame" x="16" y="117" width="214" height="214"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="Rc0-It-rnT"/>
+                            </imageView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vBa-7O-9Kb">
+                                <rect key="frame" x="124" y="84" width="49" height="32"/>
+                                <buttonCell key="cell" type="push" title="&gt;" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="13U-lx-TdP">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="nextImageButtonPressed:" target="PSJ-O0-fq3" id="Rke-2V-5GE"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WJV-Rx-ID9">
+                                <rect key="frame" x="75" y="84" width="49" height="32"/>
+                                <buttonCell key="cell" type="push" title="&lt;" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JTa-ra-va8">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="prevImageButtonPressed:" target="PSJ-O0-fq3" id="e3T-Io-Bcj"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7g9-8G-9e0">
+                                <rect key="frame" x="87" y="55" width="75" height="32"/>
+                                <buttonCell key="cell" type="push" title="Set" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="txS-BF-9Ry">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="applyButtonPressed:" target="PSJ-O0-fq3" id="jN1-aI-LgW"/>
+                                </connections>
+                            </button>
+                            <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zZp-GY-4Ug">
+                                <rect key="frame" x="20" y="334" width="207" height="26"/>
+                                <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="ZAP-ab-cQM">
+                                    <font key="font" metaFont="system"/>
+                                    <url key="url" string="file:///Applications/"/>
+                                </pathCell>
+                            </pathControl>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cf8-qI-vYz">
+                                <rect key="frame" x="182" y="0.0" width="66" height="36"/>
+                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="Settings-4" imagePosition="only" alignment="center" inset="2" id="fY2-zf-jdO">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="settingsButtonPressed:" target="PSJ-O0-fq3" id="Azd-Ru-LSQ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="hYL-gI-q6u" id="TUW-sI-jA5"/>
+                        <outlet property="pathControl" destination="zZp-GY-4Ug" id="I5P-1G-Cxk"/>
+                    </connections>
+                </viewController>
+                <customObject id="tp7-7u-ilG" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="336" y="1224"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="Settings-4" width="22.5" height="22.5"/>
+    </resources>
 </document>

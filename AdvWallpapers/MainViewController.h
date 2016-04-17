@@ -24,8 +24,6 @@
     
     NSArray<NSString*> *rotationStrings;
 }
-- (IBAction)togglePanel:(id)sender;
-
 
 @property (strong) IBOutlet NSButton *randomCheckbox;
 @property (strong) IBOutlet NSComboBox *rotationComboBox;

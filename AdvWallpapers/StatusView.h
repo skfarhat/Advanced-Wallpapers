@@ -12,17 +12,15 @@
 {
     BOOL _isHighlighted;
     NSImage *_image;
-    
-    
-    NSStatusItem *statusItem; 
 }
-
--(id)initWithStatusItem:(NSStatusItem*) item;
 
 @property (nonatomic, strong) NSImage *image;
 @property (nonatomic, setter = setHighlighted:) BOOL isHighlighted;
 @property (nonatomic) SEL action;
 @property (nonatomic, unsafe_unretained) id target;
 @property (nonatomic, readonly) NSRect globalRect;
+@property (nonatomic, strong) NSStatusItem *statusItem;
+
+
 
 @end

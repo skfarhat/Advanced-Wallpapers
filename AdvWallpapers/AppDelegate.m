@@ -19,19 +19,28 @@
 @synthesize mainViewController;
 
 @synthesize windowController;
+@synthesize statusWindowController;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     if (!slideshow) {
         slideshow = [[Slideshow alloc] init];
     }
-    statusController = [[StatusWindowController alloc] initWithWindowNibName:@"StatusWindowController"];
-    [statusController setSlideshow:slideshow]; 
     
-    mainViewController = [[MainViewController alloc] initWithNibName:@"MainVC" bundle:nil];
-    NSLog(@"%@", mainViewController);
+    // TODO: check if needded, if yes move to Appl delegate
+    //        [[self window] setTitleVisibility:NSWindowTitleHidden];
+    //        [[self window] setTitlebarAppearsTransparent:YES];
     
+    NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    
+    // window controller
+    statusWindowController = (NSWindowController*) [storyboard instantiateControllerWithIdentifier:@"StatusWindowController"];
 
+    // view controller
+    statusController = (StatusViewController*) [statusWindowController contentViewController];
+    [statusController setSlideshow:slideshow];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMainViewController) name:@"showMainViewController" object:nil];
 }
 
@@ -39,13 +48,9 @@
     NSLog(@"%s", __PRETTY_FUNCTION__);
 
     NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
-//    mainViewController = (MainViewController*)
-//    [storyboard instantiateControllerWithIdentifier:@"MainViewController"];
     
     windowController = [storyboard instantiateControllerWithIdentifier:@"MainWindowController"];
     NSWindow *window = [windowController window];
-    NSViewController *controller = [windowController contentViewController];;
-    NSLog(@"%@", controller);
     
     [window makeKeyAndOrderFront:nil];
     [window setIsVisible:YES];
