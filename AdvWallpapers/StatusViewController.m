@@ -67,6 +67,15 @@
     [view setKeyDelegate:self];
     
 }
+- (void)flagsChanged:(NSEvent *)theEvent {
+    commandDown = false;
+    
+    // command pressed
+    if ([theEvent modifierFlags] & NSCommandKeyMask) {
+        commandDown = true;
+    }
+}
+
 -(void)keyDown:(NSEvent *)theEvent{
     NSString*   const   character   =   [theEvent charactersIgnoringModifiers];
     unichar     const   code        =   [character characterAtIndex:0];
@@ -97,6 +106,10 @@
         {
             [self closePanel];
             break;
+        }
+        case 44:
+        {
+            if (commandDown) [self settingsButtonPressed:nil];
         }
         default:
         {
@@ -145,6 +158,7 @@
 
 - (void)closePanel
 {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
     [NSAnimationContext beginGrouping];
     [[NSAnimationContext currentContext] setDuration:CLOSE_DURATION];
     [[[[self view] window] animator] setAlphaValue:0];

@@ -22,6 +22,8 @@
     
     // data
     NSArray<NSString*> *filenames;
+    
+    BOOL commandDown; 
 }
 @property (strong) IBOutlet StatusMainView *statusMainView;
 
