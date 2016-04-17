@@ -6,7 +6,7 @@
 //  Copyright © 2016 Sami Farhat. All rights reserved.
 //
 
-#import "StatusWindowController.h"
+#import "StatusViewController.h"
 
 #define OPEN_DURATION .15
 #define CLOSE_DURATION .1
@@ -19,18 +19,20 @@
 #define ARROW_HEIGHT 8
 
 
-@interface StatusWindowController ()
+@interface StatusViewController ()
 
 @end
 
-@implementation StatusWindowController
+@implementation StatusViewController
 @synthesize slideshow;
+@synthesize pathControl;
+@synthesize imageView;
 
--(id) initWithWindowNibName:(NSString *)windowNibName
-{
-    self = [super initWithWindowNibName:windowNibName];
-    if (self) {
-        
+-(id)initWithCoder:(NSCoder *)coder{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    self  = [super initWithCoder: coder];
+    if (self)
+    {
         NSImage *img = [NSImage imageNamed:@"instagram"];
         
         statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:STATUS_ITEM_VIEW_WIDTH];
@@ -38,28 +40,60 @@
         [statusItem setImage:img];
         [statusItem setAction:@selector(togglePanel:)];
         
-        statusView = [[StatusView alloc] initWithStatusItem:statusItem];
-        statusView.action = @selector(togglePanel:);
-        [statusView setTarget:self]; 
+        statusView = [[StatusView alloc] init];
+        [statusView setStatusItem:statusItem];
+        
+        [statusView setAction:@selector(togglePanel:)];
+        [statusView setTarget:self];
         [statusView setNeedsDisplay:YES];
         
-        // hide the title bar
-        [[self window] setTitleVisibility:NSWindowTitleHidden];
-        [[self window] setTitlebarAppearsTransparent:YES];
-        alreadyOpen = false; 
-
+        [statusItem setView: statusView];
+        
+        alreadyOpen = false;
+        
     }
     return self;
 }
-- (void)windowDidLoad {
-    [super windowDidLoad];
-    
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
+
+-(BOOL)acceptsFirstResponder{
+    return YES; 
 }
 
-- (void)windowDidResize:(NSNotification *)notification
-{
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    
+    StatusMainView *view = (StatusMainView*) self.view;
+    [view setKeyDelegate:self];
+    
+}
+-(void)keyDown:(NSEvent *)theEvent{
     NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSString*   const   character   =   [theEvent charactersIgnoringModifiers];
+    unichar     const   code        =   [character characterAtIndex:0];
+    
+    switch (code)
+    {
+        case NSUpArrowFunctionKey:
+        {
+            break;
+        }
+        case NSDownArrowFunctionKey:
+        {
+            break;
+        }
+        case NSLeftArrowFunctionKey:
+        {
+            [self prevImageButtonPressed:nil];
+            //            [self navigateToPreviousImage];
+            break;
+        }
+        case NSRightArrowFunctionKey:
+        {
+            [self nextImageButtonPressed:nil];
+            //            [self navigateToNextImage];
+            break;
+        }
+    }
 }
 
 #pragma mark -
@@ -70,27 +104,19 @@
     // some config
     NSTimeInterval openDuration = OPEN_DURATION;
     
-    // the status rect
-    NSRect statusviewrect = statusView.frame;
-//    NSLog(@"%f,%f %f,%f", statusviewrect.origin.x, statusviewrect.origin.y,
-//          statusviewrect.size.width, statusviewrect.size.height);
-
-    NSWindow *panel = [self window];
+    NSWindow *panel = [[self view] window];
     NSRect statusRect = [self statusRectForWindow:panel];
-//    NSLog(@"%f,%f %f,%f", statusRect.origin.x, statusRect.origin.y,
-//          statusRect.size.width, statusRect.size.height);
     
     // the panel of this window
     [panel setAlphaValue:0];
     [panel setFrame:statusRect display:YES];
     [panel makeKeyAndOrderFront:nil];
-
     
-    /* new panel */
+    // new panel
     NSRect screenRect = [[[NSScreen screens] objectAtIndex:0] frame];
     NSRect panelRect = [panel frame];
-    panelRect.size.width = 270.0f;
-    panelRect.size.height = 310.0f;
+    panelRect.size.width = 300.0f;
+    panelRect.size.height = 400.0f;
     if (NSMaxX(panelRect) > (NSMaxX(screenRect) - ARROW_HEIGHT))
         panelRect.origin.x -= NSMaxX(panelRect) - (NSMaxX(screenRect) - ARROW_HEIGHT);
     
@@ -110,19 +136,18 @@
 {
     [NSAnimationContext beginGrouping];
     [[NSAnimationContext currentContext] setDuration:CLOSE_DURATION];
-    [[[self window] animator] setAlphaValue:0];
+    [[[[self view] window] animator] setAlphaValue:0];
     [NSAnimationContext endGrouping];
     
     dispatch_after(dispatch_walltime(NULL, NSEC_PER_SEC * CLOSE_DURATION * 2), dispatch_get_main_queue(), ^{
         
-        [self.window orderOut:nil];
+        [self.view.window orderOut:nil];
     });
 }
 
 - (IBAction)togglePanel:(id)sender {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    // TODO: check if panel open or close
     if (alreadyOpen)
     {
         [self closePanel];
@@ -152,33 +177,28 @@
         index = [filenames count] - 1;
     }
     
+    [self refresh];
+}
+
+-(void)refresh {
     // set the image
-    NSString *imagePath = [NSString stringWithFormat:@"%@%@",
+    NSString *imagePath = [NSString stringWithFormat:@"%@/%@",
                            slideshow.getPath, filenames[index]];
     NSImage *image = [[NSImage alloc] initWithContentsOfFile:imagePath];
-    NSLog(@"the image is %@ and path is %@", image, imagePath);
-    [_imageView setImage:image];
-    
+    [imageView setImage:image];
 }
 - (IBAction)nextImageButtonPressed:(id)sender {
     if (index++ == [filenames count]) {
         index = 0;
     }
     
-    // set the image
-    NSString *imagePath = [NSString stringWithFormat:@"%@/%@",
-                           slideshow.getPath, filenames[index]];
-    NSImage *image = [[NSImage alloc] initWithContentsOfFile:imagePath];
-    NSLog(@"the image is %@ and path is %@", image, imagePath);
-    [_imageView setImage:image];
-    
+    [self refresh];
 }
 - (IBAction)applyButtonPressed:(id)sender {
     NSString *scriptPath = [[NSBundle mainBundle] pathForResource:@"SetDesktopPicture" ofType:@"applescript"];
     NSString *contents = [NSString stringWithContentsOfFile:scriptPath encoding:
                           NSUTF8StringEncoding error:nil];
-    NSString *fullImagePath = [NSString stringWithFormat:@"%@/%@", slideshow.getPath, filenames[index]];
-    NSString *s = [NSString stringWithFormat:contents, fullImagePath];
+    NSString *s = [NSString stringWithFormat:contents, [self getcurrentFilename]];
     NSDictionary *errorDict;
     NSAppleScript* scriptObject = [[NSAppleScript alloc] initWithSource:s];
     [scriptObject executeAndReturnError: &errorDict];
@@ -204,8 +224,15 @@
     filenames = [filenames filteredArrayUsingPredicate:
                  [NSPredicate predicateWithFormat:@"(pathExtension IN %@)", @[@"jpg", @"png", @"JPG"]]];
     
+    NSURL *url = [NSURL URLWithString:slideshow.getPath];
+    [pathControl setURL:url];
     // TODO: refresh the view here
     
+}
+
+/** returns the fullpath to the currently selected image */
+-(NSString*)getcurrentFilename {
+    return [NSString stringWithFormat:@"%@/%@", slideshow.getPath, filenames[index]];
 }
 
 @end

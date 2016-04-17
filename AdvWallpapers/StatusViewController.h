@@ -9,9 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import "StatusView.h"
 #import "Slideshow.h"
+#import "KeyDelegate.h"
+#import "StatusMainView.h"
 
-@interface StatusWindowController : NSWindowController {
-    StatusView *statusView;
+@interface StatusViewController : NSViewController <KeyDelegate> {
+    StatusView *statusView; 
     NSStatusItem *statusItem;
     BOOL alreadyOpen;
     
@@ -24,8 +26,8 @@
 
 @property(nonatomic, strong) Slideshow *slideshow;
 @property (weak) IBOutlet NSImageView *imageView;
+@property (weak) IBOutlet NSPathControl *pathControl;
 
 -(void)openPanel;
-
 
 @end
