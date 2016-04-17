@@ -22,7 +22,6 @@
 }
 
 -(void)keyDown:(NSEvent *)theEvent{
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     [keyDelegate keyDown:theEvent]; 
 }
 @end

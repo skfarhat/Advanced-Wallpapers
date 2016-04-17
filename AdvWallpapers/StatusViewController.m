@@ -160,19 +160,11 @@
 
 - (IBAction)togglePanel:(id)sender {
     NSLog(@"%s", __PRETTY_FUNCTION__);
-//    [self.view.window makeKeyWindow];
-//    [self.view.window makeFirstResponder:statusView];
     
-    if (alreadyOpen)
-    {
-        [self closePanel];
-    }
-    else
-    {
-        [self openPanel];
-    }
+    if (alreadyOpen)    [self closePanel];
+    else                [self openPanel];
+    
     alreadyOpen = !alreadyOpen;
-    
 }
 
 #pragma mark -
@@ -203,7 +195,6 @@
     [imageView setImage:image];
 }
 - (IBAction)nextImageButtonPressed:(id)sender {
-    NSLog(@"firstResponder: %@", [self.view.window firstResponder]);
     if (index++ == [filenames count]) {
         index = 0;
     }

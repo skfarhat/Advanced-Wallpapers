@@ -15,17 +15,6 @@
 @synthesize target;
 @synthesize statusItem;
 
-//-(BOOL)acceptsFirstResponder{
-//    return YES; 
-//}
-//-(BOOL)canBecomeKeyView{
-//    NSLog(@"%s", __PRETTY_FUNCTION__);
-//    return YES; 
-//}
-//-(BOOL)becomeFirstResponder{
-//    NSLog(@"%s", __PRETTY_FUNCTION__);
-//    return YES;
-//}
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
 
