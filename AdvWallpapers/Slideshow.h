@@ -22,8 +22,12 @@
 /** */ 
 -(Slideshow*)init;
 
+@property (nonnull, strong) NSString *path ;
+
+-(void) save;
+
 /** */
--(void) save:(NSString*)path random:(NSString*)random
+-(void) save:(NSString* _Nullable)path random:(NSString*)random
      seconds:(NSString*)seconds rotation:(NSString*)rotation;
 
 /** */
@@ -34,8 +38,5 @@
 
 /** */
 -(BOOL) getRandom;
-
-/** */ 
--(NSString*) getPath;
 
 @end

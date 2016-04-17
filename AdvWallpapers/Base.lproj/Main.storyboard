@@ -898,11 +898,11 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hYL-gI-q6u">
-                                <rect key="frame" x="16" y="117" width="214" height="214"/>
+                                <rect key="frame" x="17" y="97" width="214" height="214"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="Rc0-It-rnT"/>
                             </imageView>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vBa-7O-9Kb">
-                                <rect key="frame" x="124" y="84" width="49" height="32"/>
+                                <rect key="frame" x="125" y="64" width="49" height="32"/>
                                 <buttonCell key="cell" type="push" title="&gt;" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="13U-lx-TdP">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -912,7 +912,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WJV-Rx-ID9">
-                                <rect key="frame" x="75" y="84" width="49" height="32"/>
+                                <rect key="frame" x="76" y="64" width="49" height="32"/>
                                 <buttonCell key="cell" type="push" title="&lt;" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JTa-ra-va8">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -922,7 +922,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7g9-8G-9e0">
-                                <rect key="frame" x="87" y="55" width="75" height="32"/>
+                                <rect key="frame" x="88" y="35" width="75" height="32"/>
                                 <buttonCell key="cell" type="push" title="Set" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="txS-BF-9Ry">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -932,15 +932,27 @@
                                 </connections>
                             </button>
                             <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zZp-GY-4Ug">
-                                <rect key="frame" x="20" y="334" width="207" height="26"/>
+                                <rect key="frame" x="21" y="315" width="207" height="26"/>
                                 <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="ZAP-ab-cQM">
                                     <font key="font" metaFont="system"/>
                                     <url key="url" string="file:///Applications/"/>
                                 </pathCell>
+                                <connections>
+                                    <action selector="pathControlClicked:" target="PSJ-O0-fq3" id="Q0f-yd-l8I"/>
+                                    <outlet property="delegate" destination="PSJ-O0-fq3" id="Xs8-q1-qeL"/>
+                                </connections>
                             </pathControl>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cf8-qI-vYz">
-                                <rect key="frame" x="182" y="0.0" width="66" height="36"/>
-                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="Settings-4" imagePosition="only" alignment="center" inset="2" id="fY2-zf-jdO">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SZK-zq-7d9">
+                                <rect key="frame" x="-2" y="363" width="252" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Adv. Wallpapers" id="ReR-ep-ixh">
+                                    <font key="font" metaFont="systemSemibold" size="13"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Cf8-qI-vYz">
+                                <rect key="frame" x="0.0" y="0.0" width="248" height="32"/>
+                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="Settings-4" imagePosition="overlaps" alignment="center" inset="2" id="fY2-zf-jdO">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -949,6 +961,11 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Cf8-qI-vYz" secondAttribute="bottom" id="6BL-i0-3rM"/>
+                            <constraint firstAttribute="trailing" secondItem="Cf8-qI-vYz" secondAttribute="trailing" id="fVD-XT-fF9"/>
+                            <constraint firstItem="Cf8-qI-vYz" firstAttribute="leading" secondItem="XS3-im-MM4" secondAttribute="leading" id="mEk-5i-qoN"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="hYL-gI-q6u" id="TUW-sI-jA5"/>

@@ -12,7 +12,7 @@
 #import "KeyDelegate.h"
 #import "StatusMainView.h"
 
-@interface StatusViewController : NSViewController <KeyDelegate> {
+@interface StatusViewController : NSViewController <KeyDelegate, NSPathControlDelegate> {
     StatusView *statusView; 
     NSStatusItem *statusItem;
     BOOL alreadyOpen;

@@ -192,6 +192,15 @@
     }
     return statusRect;
 }
+
+-(void)refresh {
+    // set the image
+    NSString *imagePath = [NSString stringWithFormat:@"%@/%@",
+                           slideshow.path, filenames[index]];
+    NSImage *image = [[NSImage alloc] initWithContentsOfFile:imagePath];
+    [imageView setImage:image];
+}
+
 - (IBAction)prevImageButtonPressed:(id)sender {
     if (index-- == 0) {
         index = [filenames count] - 1;
@@ -200,13 +209,6 @@
     [self refresh];
 }
 
--(void)refresh {
-    // set the image
-    NSString *imagePath = [NSString stringWithFormat:@"%@/%@",
-                           slideshow.getPath, filenames[index]];
-    NSImage *image = [[NSImage alloc] initWithContentsOfFile:imagePath];
-    [imageView setImage:image];
-}
 - (IBAction)nextImageButtonPressed:(id)sender {
     if (index++ == [filenames count] - 1) {
         index = 0;
@@ -214,6 +216,7 @@
     
     [self refresh];
 }
+
 - (IBAction)applyButtonPressed:(id)sender {
     NSString *scriptPath = [[NSBundle mainBundle] pathForResource:@"SetDesktopPicture" ofType:@"applescript"];
     NSString *contents = [NSString stringWithContentsOfFile:scriptPath encoding:
@@ -224,27 +227,26 @@
     [scriptObject executeAndReturnError: &errorDict];
     
     NSLog(@"%@", errorDict.description);
-    
-    
 }
+
 - (IBAction)settingsButtonPressed:(id)sender {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     
     // tell app delegate to open the mainview controller
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"showMainViewController" object:nil userInfo:nil];
 }
 
 -(void)setSlideshow:(Slideshow *)slideshow1{
     slideshow = slideshow1;
     filenames = [[NSFileManager defaultManager]
-                 contentsOfDirectoryAtPath:[slideshow getPath]
+                 contentsOfDirectoryAtPath:slideshow.path
                  error:nil];
     
     filenames = [filenames filteredArrayUsingPredicate:
                  [NSPredicate predicateWithFormat:@"(pathExtension IN %@)", @[@"jpg", @"png", @"JPG"]]];
     
-    NSURL *url = [NSURL URLWithString:slideshow.getPath];
+    
+    NSURL *url = [NSURL URLWithString:slideshow.path];
     [pathControl setURL:url];
     // TODO: refresh the view here
     [self refresh];
@@ -252,7 +254,25 @@
 
 /** returns the fullpath to the currently selected image */
 -(NSString*)getcurrentFilename {
-    return [NSString stringWithFormat:@"%@/%@", slideshow.getPath, filenames[index]];
+    return [NSString stringWithFormat:@"%@/%@", slideshow.path, filenames[index]];
 }
+
+#pragma mark -
+#pragma mark PathControl 
+
+
+-(BOOL)pathControl:(NSPathControl *)pathControl acceptDrop:(id<NSDraggingInfo>)info{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    return YES;
+}
+- (IBAction)pathControlClicked:(id)sender {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSURL *url = [pathControl objectValue];
+    [slideshow setPath:url.path];
+    [slideshow save];
+    [self refresh];
+}
+
+
 
 @end

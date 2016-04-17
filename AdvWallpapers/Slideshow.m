@@ -17,6 +17,8 @@
 
 @implementation Slideshow
 
+@synthesize path;
+
 -(Slideshow*)init {
     plistPath   = [[NSBundle mainBundle] pathForResource:@"Config" ofType:@"plist"];
     plist       = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
@@ -48,6 +50,10 @@
     
 }
 
+-(void) save {
+    return [self save:path random:random seconds:seconds rotation:rotation];
+}
+
 -(NSInteger)getSeconds {
     return seconds.integerValue;
 }
@@ -60,8 +66,6 @@
     return [random isEqualToString:@"true"];
 }
 
--(NSString *)getPath {
-    return path;
-}
+
 @end
 
