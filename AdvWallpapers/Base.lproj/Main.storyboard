@@ -688,7 +688,7 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="nextImagePressed:" target="XfG-lQ-9wD" id="66m-jh-S7M"/>
+                                            <action selector="nextImagePressed:" target="XfG-lQ-9wD" id="EUT-NT-ReN"/>
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LAn-1N-al0">
@@ -698,7 +698,7 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="prevImagePressed:" target="XfG-lQ-9wD" id="U5N-S3-u9b"/>
+                                            <action selector="prevImagePressed:" target="XfG-lQ-9wD" id="t8K-22-B0Q"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -709,24 +709,6 @@
                                     <customView ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NLa-kt-rfM" userLabel="Choose Folder">
                                         <rect key="frame" x="0.0" y="82" width="400" height="61"/>
                                         <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DGy-TQ-grv" userLabel="Folder Label">
-                                                <rect key="frame" x="95" y="45" width="353" height="17"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="/Wallpapers/Path/" id="RD1-s7-SLo">
-                                                    <font key="font" metaFont="cellTitle"/>
-                                                    <color key="textColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
-                                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AHz-tT-h00" userLabel="Folder Picker">
-                                                <rect key="frame" x="-6" y="8" width="129" height="32"/>
-                                                <buttonCell key="cell" type="push" title="Choose Folder" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uar-8e-2z2">
-                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
-                                                </buttonCell>
-                                                <connections>
-                                                    <action selector="chooseFolderPressed:" target="XfG-lQ-9wD" id="FkO-mp-M1g"/>
-                                                </connections>
-                                            </button>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gAj-s4-ieH">
                                                 <rect key="frame" x="-2" y="44" width="93" height="17"/>
                                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Source Folder" id="SLi-lr-fpN">
@@ -735,6 +717,17 @@
                                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                             </textField>
+                                            <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AMR-Aq-fyw">
+                                                <rect key="frame" x="9" y="16" width="207" height="26"/>
+                                                <pathCell key="cell" selectable="YES" editable="YES" alignment="left" pathStyle="popUp" id="ho1-3p-DL9">
+                                                    <font key="font" metaFont="system"/>
+                                                    <url key="url" string="file:///Applications/"/>
+                                                </pathCell>
+                                                <connections>
+                                                    <action selector="pathControlClicked:" target="PSJ-O0-fq3" id="yFt-Kr-pIm"/>
+                                                    <outlet property="delegate" destination="PSJ-O0-fq3" id="b7C-ry-dQC"/>
+                                                </connections>
+                                            </pathControl>
                                         </subviews>
                                     </customView>
                                     <customView ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LAF-O8-8Yb" userLabel="Set Interval">
@@ -859,9 +852,9 @@
                     <connections>
                         <outlet property="daysTextField" destination="0jP-Bv-IkX" id="o94-wU-zCT"/>
                         <outlet property="hoursTextField" destination="nDO-nZ-44d" id="pGK-qd-Ity"/>
-                        <outlet property="imageView" destination="Kle-qb-Dxg" id="5ew-9G-Zho"/>
+                        <outlet property="imageView" destination="Kle-qb-Dxg" id="KhX-W7-m5M"/>
                         <outlet property="minTextField" destination="jVx-z5-Gvv" id="vgI-u9-vWo"/>
-                        <outlet property="pathLabel" destination="DGy-TQ-grv" id="i6o-MJ-1YP"/>
+                        <outlet property="pathControl" destination="AMR-Aq-fyw" id="S1l-pm-fE7"/>
                         <outlet property="randomCheckbox" destination="ebN-Wd-0LT" id="4ER-zJ-G7W"/>
                         <outlet property="rotationComboBox" destination="jvV-Bp-RST" id="cYa-AK-5Cb"/>
                         <outlet property="secTextField" destination="Hna-CK-FFX" id="PzS-6n-L73"/>
