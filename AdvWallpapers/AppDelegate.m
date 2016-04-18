@@ -20,7 +20,6 @@
 @synthesize statusWindowController;
 @synthesize windowController;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     if (!slideshow) {
         slideshow = [[Slideshow alloc] init];
     }
@@ -42,9 +41,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMainViewController:) name:@"showMainViewController" object:nil];
 }
 
+- (void)applicationWillTerminate:(NSNotification *)aNotification {
+    // Insert code here to tear down your application
+}
+
 -(void)showMainViewController:(NSNotification*) notification {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-//    Slideshow *slideshow = (Slideshow*) [notification userInfo];
 
     NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
     
@@ -55,12 +56,7 @@
     [window setIsVisible:YES];
 
     // set the slideshow on the MainViewControlller
-//    MainViewController *mainViewController =  (MainViewController*) windowController.contentViewController;
     [windowController showWindow:windowController.self];
-    
-}
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
 }
 
 -(void)setMainViewController:(MainViewController *)mainViewController1 {

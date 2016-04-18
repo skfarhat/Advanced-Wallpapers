@@ -22,22 +22,16 @@
 @synthesize slideshow;
 
 - (void)viewDidLoad {
-    NSLog(@"%s", __PRETTY_FUNCTION__); 
     [super viewDidLoad];
+    
     // init OpenDialog
     openDlg = [NSOpenPanel openPanel];
     [openDlg setCanChooseFiles:NO];
     [openDlg setCanChooseDirectories:YES];
     [openDlg setAllowsMultipleSelection:NO];
     
-    
-    // TODO:
-    /// move these to enums or some constants that belong to Slideshow
     rotationStrings = [NSArray arrayWithObjects:
-                       @"Off",
-                       @"Interval",
-                       @"Login",
-                       @"Sleep", nil];
+                       @"Off", @"Interval", @"Login", @"Sleep", nil];
     index = 0;
     [rotationComboBox addItemsWithObjectValues:rotationStrings];
     if ([rotationStrings count] > 0)
@@ -48,6 +42,27 @@
     AppDelegate *delegate = (AppDelegate*)[NSApplication sharedApplication].delegate;
     [delegate setMainViewController:self];
 }
+
+-(void)refresh {
+    if (!slideshow) return;
+    
+    // get all files from the selected directory path, then filter it leaving
+    // only jpg and png files
+    filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:slideshow.path error:nil];
+    filenames = [filenames filteredArrayUsingPredicate:
+                 [NSPredicate predicateWithFormat:@"(pathExtension IN %@)", @[@"jpg", @"png", @"JPG"]]];
+    
+    
+    [self updateImageView];
+    
+    if (slideshow.path)
+        [pathLabel setStringValue:slideshow.path];
+    if (slideshow.rotation)
+        [rotationComboBox selectItemAtIndex:slideshow.rotation.integerValue];
+    if (slideshow.random)
+        [randomCheckbox setState:slideshow.random.integerValue];
+}
+
 
 -(NSInteger) getTimeInterval {
     NSInteger days = [[daysTextField stringValue] intValue];
@@ -92,31 +107,6 @@
     [daysTextField setStringValue:@(days).stringValue];
 }
 
-///**
-// * 1- updates filenames which is an array of png and jpg files from the given
-// *     path
-// * 2- update & save plist file with the last images directory path
-// */
-//-(void) setWallpapersPath:(NSString*)newPath {
-//    
-//    if (newPath == NULL || [newPath length] == 0)
-//        [pathLabel setStringValue:@"Not set"];
-//
-//    else
-//    {
-//        wallpapersPath = newPath;
-//        [pathLabel setStringValue:wallpapersPath];
-//        
-//        /* get all files from the selected directory path, then filter it leaving
-//         * only jpg and png files */
-//        filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:wallpapersPath error:nil];
-//        filenames = [filenames filteredArrayUsingPredicate:
-//                     [NSPredicate predicateWithFormat:@"(pathExtension IN %@)", @[@"jpg", @"png", @"JPG"]]];
-//        
-//        [self updateImageView];
-//    }
-//}
-
 #pragma mark User Interface
 
 - (IBAction)chooseFolderPressed:(id)sender {
@@ -126,7 +116,6 @@
     {
         NSString *filename = [openDlg URLs][0].path;
         [slideshow setPath:filename];
-//        [self setWallpapersPath:filename];
     }
 }
 
@@ -136,7 +125,6 @@
         index = 0;
     
     [self refresh];
-//    [self updateImageView];
 }
 
 -(IBAction)prevImagePressed:(id)sender {
@@ -148,12 +136,6 @@
 }
 #pragma mark Save
 
-/*
- // picture rotation: -- (0=off, 1=interval, 2=login, 3=sleep)
- // set random order
- // set pictures folder to file ""
- // set change interval to 5.0
- */
 -(IBAction)apply:(id)sender {
     
     
@@ -189,28 +171,7 @@
     }
 }
 
--(void)refresh {
-    if (!slideshow) return;
-    
-    // get all files from the selected directory path, then filter it leaving
-    // only jpg and png files
-    filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:slideshow.path error:nil];
-    filenames = [filenames filteredArrayUsingPredicate:
-                 [NSPredicate predicateWithFormat:@"(pathExtension IN %@)", @[@"jpg", @"png", @"JPG"]]];
-
-    
-    [self updateImageView];
-    
-    if (slideshow.path)
-        [pathLabel setStringValue:slideshow.path];
-    if (slideshow.rotation)
-        [rotationComboBox selectItemAtIndex:slideshow.rotation.integerValue];
-    if (slideshow.random)
-        [randomCheckbox setState:slideshow.random.integerValue];
-}
-
 -(void)setSlideshow:(Slideshow *)slideshow1{
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     slideshow = slideshow1;
     [self refresh];
 }

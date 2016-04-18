@@ -22,8 +22,9 @@
 @synthesize random;
 @synthesize seconds;
 
-
 -(Slideshow*)init {
+    self = [super init];
+    
     plistPath   = [[NSBundle mainBundle] pathForResource:@"Config" ofType:@"plist"];
     plist       = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
     
@@ -32,7 +33,6 @@
     rotation    = [plist valueForKey:KEY_LAST_ROTATION];
     path        = [plist valueForKey:KEY_LAST_DIRECTORY];
     
-    NSLog(@"%@-%@-%@-%@", random, seconds, rotation, path);
     return self;
 }
 
@@ -51,7 +51,6 @@
     [plist setValue:seconds forKey:KEY_LAST_INTERVAL_SEC];
     
     [plist writeToFile:plistPath atomically:YES];
-    
 }
 
 -(void) save {
