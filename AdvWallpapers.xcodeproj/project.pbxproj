@@ -22,6 +22,8 @@
 		2648BC641CBEDD3900812512 /* StatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC631CBEDD3900812512 /* StatusView.m */; };
 		2648BC6F1CC0699500812512 /* SetDesktopPicture.applescript in Resources */ = {isa = PBXBuildFile; fileRef = 2648BC6D1CC068A100812512 /* SetDesktopPicture.applescript */; };
 		2648BC7D1CC30B8E00812512 /* StatusMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC7C1CC30B8E00812512 /* StatusMainView.m */; };
+		2648BC841CC51E4E00812512 /* BaseClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC821CC51E4E00812512 /* BaseClassViewController.m */; };
+		2648BC8A1CC534AF00812512 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2648BC891CC534AF00812512 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		260D692B1CC8130C007E765D /* AdvWallpapers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdvWallpapers.h; sourceTree = "<group>"; };
 		2648BC0B1CBD45ED00812512 /* AdvWallpapers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdvWallpapers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2648BC0E1CBD45ED00812512 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2648BC0F1CBD45ED00812512 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -71,6 +74,9 @@
 		2648BC7A1CC301E600812512 /* KeyDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyDelegate.h; sourceTree = "<group>"; };
 		2648BC7B1CC30B8E00812512 /* StatusMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusMainView.h; sourceTree = "<group>"; };
 		2648BC7C1CC30B8E00812512 /* StatusMainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusMainView.m; sourceTree = "<group>"; };
+		2648BC811CC51E4E00812512 /* BaseClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseClassViewController.h; sourceTree = "<group>"; };
+		2648BC821CC51E4E00812512 /* BaseClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseClassViewController.m; sourceTree = "<group>"; };
+		2648BC891CC534AF00812512 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,19 +127,21 @@
 		2648BC0D1CBD45ED00812512 /* AdvWallpapers */ = {
 			isa = PBXGroup;
 			children = (
+				260D692B1CC8130C007E765D /* AdvWallpapers.h */,
 				2648BC0E1CBD45ED00812512 /* AppDelegate.h */,
 				2648BC0F1CBD45ED00812512 /* AppDelegate.m */,
-				2648BC411CBD46A500812512 /* MainViewController.h */,
-				2648BC421CBD46A500812512 /* MainViewController.m */,
 				2648BC191CBD45ED00812512 /* Main.storyboard */,
-				2648BC521CBD500900812512 /* Slideshow.h */,
-				2648BC531CBD500900812512 /* Slideshow.m */,
+				2648BC7A1CC301E600812512 /* KeyDelegate.h */,
+				2648BC881CC5335800812512 /* Model */,
+				2648BC871CC5334D00812512 /* View Controllers */,
+				2648BC861CC5334400812512 /* Views */,
 				2648BC611CBEDD2500812512 /* Status */,
+				2648BC4E1CBD47E500812512 /* Resources */,
+				2648BC111CBD45ED00812512 /* Supporting Files */,
 				2648BC171CBD45ED00812512 /* Assets.xcassets */,
 				2648BC1C1CBD45ED00812512 /* Info.plist */,
 				2648BC551CBD659700812512 /* TODO */,
-				2648BC4E1CBD47E500812512 /* Resources */,
-				2648BC111CBD45ED00812512 /* Supporting Files */,
+				2648BC891CC534AF00812512 /* README.md */,
 			);
 			path = AdvWallpapers;
 			sourceTree = "<group>";
@@ -178,15 +186,41 @@
 		2648BC611CBEDD2500812512 /* Status */ = {
 			isa = PBXGroup;
 			children = (
-				2648BC7A1CC301E600812512 /* KeyDelegate.h */,
-				2648BC5C1CBECFA500812512 /* StatusViewController.h */,
-				2648BC5D1CBECFA500812512 /* StatusViewController.m */,
+			);
+			name = Status;
+			sourceTree = "<group>";
+		};
+		2648BC861CC5334400812512 /* Views */ = {
+			isa = PBXGroup;
+			children = (
 				2648BC621CBEDD3900812512 /* StatusView.h */,
 				2648BC631CBEDD3900812512 /* StatusView.m */,
 				2648BC7B1CC30B8E00812512 /* StatusMainView.h */,
 				2648BC7C1CC30B8E00812512 /* StatusMainView.m */,
 			);
-			name = Status;
+			name = Views;
+			sourceTree = "<group>";
+		};
+		2648BC871CC5334D00812512 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2648BC811CC51E4E00812512 /* BaseClassViewController.h */,
+				2648BC821CC51E4E00812512 /* BaseClassViewController.m */,
+				2648BC411CBD46A500812512 /* MainViewController.h */,
+				2648BC421CBD46A500812512 /* MainViewController.m */,
+				2648BC5C1CBECFA500812512 /* StatusViewController.h */,
+				2648BC5D1CBECFA500812512 /* StatusViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		2648BC881CC5335800812512 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2648BC521CBD500900812512 /* Slideshow.h */,
+				2648BC531CBD500900812512 /* Slideshow.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,7 +360,9 @@
 				2648BC131CBD45ED00812512 /* main.m in Sources */,
 				2648BC641CBEDD3900812512 /* StatusView.m in Sources */,
 				2648BC5F1CBECFA500812512 /* StatusViewController.m in Sources */,
+				2648BC841CC51E4E00812512 /* BaseClassViewController.m in Sources */,
 				2648BC101CBD45ED00812512 /* AppDelegate.m in Sources */,
+				2648BC8A1CC534AF00812512 /* README.md in Sources */,
 				2648BC7D1CC30B8E00812512 /* StatusMainView.m in Sources */,
 				2648BC431CBD46A500812512 /* MainViewController.m in Sources */,
 			);
