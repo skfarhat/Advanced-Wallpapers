@@ -16,4 +16,16 @@
 #define APPLESCRIPT_SET_DESKTOP_PICTURE     @"SetDesktopPicture"
 #define NOTIFICATION_SHOW_MAIN_CONTROLLER   @"showMainViewController"
 
+#define PLIST_CONFIG_NAME       @"Config"
+#define PLIST_EXTENSION         @"plist"
+
+
+/* keys in plist */
+#define KEY_LAST_DIRECTORY      @"Last_Directory"
+#define KEY_LAST_INTERVAL_SEC   @"Last_Interval"
+#define KEY_LAST_RANDOM         @"Last_Random"
+#define KEY_LAST_ROTATION       @"Last_Rotation"
+
+
+
 #endif /* AdvWallpapers_h */

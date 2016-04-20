@@ -28,17 +28,17 @@
     //        [[self window] setTitleVisibility:NSWindowTitleHidden];
     //        [[self window] setTitlebarAppearsTransparent:YES];
     
-    NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
+    NSStoryboard *storyboard = [NSStoryboard storyboardWithName:STORY_NAME bundle:nil];
     
     
     // window controller
-    statusWindowController = (NSWindowController*) [storyboard instantiateControllerWithIdentifier:@"StatusWindowController"];
+    statusWindowController = (NSWindowController*) [storyboard instantiateControllerWithIdentifier:STATUS_CONTROLLER];
 
     // view controller
     statusController = (StatusViewController*) [statusWindowController contentViewController];
     [statusController setSlideshow:slideshow];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMainViewController:) name:@"showMainViewController" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMainViewController:) name:NOTIFICATION_SHOW_MAIN_CONTROLLER object:nil];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
@@ -47,9 +47,9 @@
 
 -(void)showMainViewController:(NSNotification*) notification {
 
-    NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
+    NSStoryboard *storyboard = [NSStoryboard storyboardWithName:STORY_NAME bundle:nil];
     
-    windowController= [storyboard instantiateControllerWithIdentifier:@"MainWindowController"];
+    windowController= [storyboard instantiateControllerWithIdentifier:MAIN_CONTROLLER];
     NSWindow *window = [windowController window];
     
     [window makeKeyAndOrderFront:nil];

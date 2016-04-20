@@ -7,13 +7,7 @@
 //
 
 #import "Slideshow.h"
-
-/* keys in plist */
-#define KEY_LAST_DIRECTORY      @"Last_Directory"
-#define KEY_LAST_INTERVAL_SEC   @"Last_Interval"
-#define KEY_LAST_RANDOM         @"Last_Random"
-#define KEY_LAST_ROTATION       @"Last_Rotation"
-
+#import "AdvWallpapers.h"
 
 @implementation Slideshow
 
@@ -25,7 +19,7 @@
 -(Slideshow*)init {
     self = [super init];
     
-    plistPath   = [[NSBundle mainBundle] pathForResource:@"Config" ofType:@"plist"];
+    plistPath   = [[NSBundle mainBundle] pathForResource:PLIST_CONFIG_NAME ofType:PLIST_EXTENSION];
     plist       = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
     
     random      = [plist valueForKey:KEY_LAST_RANDOM];

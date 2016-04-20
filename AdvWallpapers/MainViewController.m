@@ -86,8 +86,7 @@
 #pragma mark Save
 -(IBAction)apply:(id)sender {
     
-    
-    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:@"CurrentDesktop" ofType:@"applescript"];
+    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:APPLESCRIPT_CURRENT_DESKTOP ofType:@"applescript"];
     NSString *contents = [NSString stringWithContentsOfFile:scriptPath encoding:
                           NSUTF8StringEncoding error:nil];
     NSString *rotation = @([rotationComboBox indexOfSelectedItem]).stringValue;

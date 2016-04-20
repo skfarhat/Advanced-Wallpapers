@@ -11,7 +11,7 @@
 #import "MainViewController.h"
 #import "StatusView.h"
 #import "Slideshow.h"
-
+#include "AdvWallpapers.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
