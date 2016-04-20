@@ -17,7 +17,7 @@
 
 @synthesize statusController;
 @synthesize slideshow;
-@synthesize mainViewController;
+//@synthesize mainViewController;
 @synthesize statusWindowController;
 @synthesize windowController;
 
@@ -62,13 +62,13 @@
     // set the slideshow on the MainViewControlller
     [windowController showWindow:windowController.self];
 }
-
--(void)setMainViewController:(MainViewController *)mainViewController1 {
-    if (!slideshow) {
-        slideshow = [[Slideshow alloc] init];
-    }
-    mainViewController = mainViewController1;
-    [self.mainViewController setSlideshow:slideshow];
-}
+//
+//-(void)setMainViewController:(MainViewController *)mainViewController1 {
+//    if (!slideshow) {
+//        slideshow = [[Slideshow alloc] init];
+//    }
+//    mainViewController = mainViewController1;
+//    [self.mainViewController setSlideshow:slideshow];
+//}
 
 @end

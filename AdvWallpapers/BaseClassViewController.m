@@ -85,18 +85,8 @@
         }
         case 27:
         {
-//            [self closePanel];
             [self handleEscape];
             break;
-        }
-        case 44:
-        {
-            // if cmd + ,
-            if ([theEvent modifierFlags] & NSCommandKeyMask){
-                NSLog(@"CMD + ,");
-            }
-            break;
-//                [self settingsButtonPressed:nil];
         }
         default:
         {
@@ -108,8 +98,9 @@
 -(void)handleEscape
 {
     // do nothing
-    // this method is for to be overridden by child classes
+    // this method is to be overridden by child classes
 }
+
 #pragma mark -
 #pragma mark IBActions
 

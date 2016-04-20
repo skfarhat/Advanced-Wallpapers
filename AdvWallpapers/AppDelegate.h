@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "StatusViewController.h"
-#import "MainViewController.h"
 #import "StatusView.h"
 #import "Slideshow.h"
 #include "AdvWallpapers.h"
@@ -18,7 +17,7 @@
 @property (strong, nonatomic) Slideshow *slideshow;
 
 @property (strong, nonatomic) NSWindowController *windowController;
-@property (strong, nonatomic) MainViewController *mainViewController;
+//@property (strong, nonatomic) MainViewController *mainViewController;
 @property (strong, nonatomic) NSWindowController *statusWindowController;
 @property (strong, nonatomic) StatusViewController *statusController;
 
