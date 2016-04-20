@@ -25,7 +25,7 @@
 @property (nonatomic, strong) IBOutlet NSPathControl *pathControl;
 @property (nonatomic, strong) IBOutlet NSImageView *imageView;
 
--(void)refresh; 
+-(void)refresh;
 -(void)handleEscape;
 
 @end

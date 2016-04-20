@@ -20,10 +20,10 @@
 
 
 @interface StatusViewController ()
-
 @end
 
 @implementation StatusViewController
+
 @synthesize statusMainView;
 @synthesize daysTextField, hoursTextField, minTextField, secTextField;
 @synthesize randomCheckbox, rotationComboBox;
@@ -64,7 +64,7 @@
     
     
     NSArray *rotationStrings = [NSArray arrayWithObjects:
-                       @"Off", @"Interval", @"Login", @"Sleep", nil];
+                                @"Off", @"Interval", @"Login", @"Sleep", nil];
     [rotationComboBox addItemsWithObjectValues:rotationStrings];
     if ([rotationStrings count] > 0)
         [rotationComboBox selectItemAtIndex:0];
@@ -162,7 +162,7 @@
 - (IBAction)optionChanged:(id)sender {
     if ([[rotationComboBox stringValue] isEqualToString:@"Interval"])
     {
-       // enable fields
+        // enable fields
         [daysTextField setEnabled:YES];
         [hoursTextField setEnabled:YES];
         [minTextField setEnabled:YES];
@@ -182,8 +182,10 @@
 
 - (IBAction)settingsButtonPressed:(id)sender {
     // tell app delegate to open the mainview controller
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_MAIN_CONTROLLER
-                                                        object:nil userInfo:self.slideshow];
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:NOTIFICATION_SHOW_MAIN_CONTROLLER
+     object:nil
+     userInfo:self.slideshow];
     [self closePanel];
 }
 
