@@ -36,7 +36,7 @@
     
     // window controller
     statusWindowController = (NSWindowController*) [storyboard instantiateControllerWithIdentifier:STATUS_CONTROLLER];
-
+    
     // view controller
     statusController = (StatusViewController*) [statusWindowController contentViewController];
     [statusController setSlideshow:slideshow];
@@ -46,10 +46,11 @@
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+    NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
 -(void)showMainViewController:(NSNotification*) notification {
-
+    
     NSStoryboard *storyboard = [NSStoryboard storyboardWithName:STORY_NAME bundle:nil];
     
     windowController= [storyboard instantiateControllerWithIdentifier:MAIN_CONTROLLER];
@@ -57,7 +58,7 @@
     
     [window makeKeyAndOrderFront:nil];
     [window setIsVisible:YES];
-
+    
     // set the slideshow on the MainViewControlller
     [windowController showWindow:windowController.self];
 }

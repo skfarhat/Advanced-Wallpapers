@@ -28,7 +28,7 @@
 @synthesize daysTextField, hoursTextField, minTextField, secTextField;
 @synthesize randomCheckbox, rotationComboBox;
 
--(id)initWithCoder:(NSCoder *)coder{
+-(id)initWithCoder:(NSCoder *)coder {
     
     self  = [super initWithCoder: coder];
     if (self)
@@ -56,7 +56,7 @@
     return self;
 }
 
--(void)viewDidLoad{
+-(void)viewDidLoad {
     [super viewDidLoad];
     
     // TODO: might be unnecessary
@@ -71,8 +71,7 @@
 }
 
 #pragma mark -
-- (void)openPanel
-{
+- (void)openPanel {
     NSLog(@"%s", __PRETTY_FUNCTION__);
     CGFloat width =  self.view.frame.size.width;
     CGFloat height = self.view.frame.size.height;
@@ -108,8 +107,7 @@
     [self.view.window makeFirstResponder:statusMainView];
 }
 
-- (void)closePanel
-{
+- (void)closePanel {
     [NSAnimationContext beginGrouping];
     [[NSAnimationContext currentContext] setDuration:CLOSE_DURATION];
     [[[[self view] window] animator] setAlphaValue:0];
@@ -198,7 +196,8 @@
     NSString *contents = [NSString stringWithContentsOfFile:scriptPath encoding:
                           NSUTF8StringEncoding error:nil];
     NSString *rotation = @([rotationComboBox indexOfSelectedItem]).stringValue;
-    NSString *seconds = @([self getTimeInterval]).stringValue;
+    NSInteger seconds = [self getTimeInterval];
+    NSString *secondsStr = @(seconds).stringValue;
     NSString *random =  ([randomCheckbox state] == true)? @"true" : @"false";
     
     NSAssert(contents != NULL, @"contents can't be null...");
@@ -207,7 +206,29 @@
                    @"", rotation,
                    @"", random,
                    @"", self.slideshow.path,
-                   @"", seconds];
+                   @"", secondsStr];
+    
+    
+    // make sure number of seconds is not zero and not less than some number
+    
+    if (seconds < 60)
+    {
+        NSAlert *alert = [[NSAlert alloc] init];
+        if (seconds == 0)
+        {
+            [alert setMessageText: @"Time interval cannot be 0"];
+            [alert addButtonWithTitle:@"Ok change it"];
+            [alert runModal];
+            return;
+        }
+        else {
+            [alert setMessageText:
+             @"It is generally discouaged to a have a brief time interval as this might lead to lower OS performance"];
+            [alert addButtonWithTitle:@"I'll change"];
+            [alert addButtonWithTitle:@"I know what I'm doing"];
+            [alert runModal];
+        }
+    }
     
     // exit if path is null
     if(self.slideshow.path == NULL)
@@ -224,7 +245,7 @@
     // save if no error
     if (errorDict == NULL) {
         [self.slideshow setRandom:random];
-        [self.slideshow setSeconds:seconds];
+        [self.slideshow setSeconds:secondsStr];
         [self.slideshow setRotation:rotation];
         [self.slideshow save];
     }
@@ -235,7 +256,7 @@
     return [NSString stringWithFormat:@"%@/%@", self.slideshow.path, self.filenames[index]];
 }
 
--(BOOL)acceptsFirstResponder{
+-(BOOL)acceptsFirstResponder {
     return YES;
 }
 
