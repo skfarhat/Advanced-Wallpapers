@@ -2,3 +2,6 @@
 *.json
 *.jpeg
 AdvWallpapers/TODO
+AdvWallpapers.xcodeproj/*
+*.xcbkptlist
+!screenshots/*

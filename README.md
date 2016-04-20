@@ -17,3 +17,5 @@ Right-click> Change Desktop Background takes ages as it involves opening System 
 
 
 ## Screenshots
+![Alt text](screenshots/s1.png?raw=true "Image 1")
+![Alt text](screenshots/s2.png?raw=true "Image 2")
