@@ -12,6 +12,7 @@
 @protocol KeyDelegate <NSObject>
 
 -(void)keyDown:(NSEvent *)theEvent;
--(void)flagsChanged:(NSEvent *)theEvent; 
+
 @end
+
 #endif /* KeyDelegate_h */

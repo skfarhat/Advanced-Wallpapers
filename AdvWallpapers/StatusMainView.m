@@ -24,7 +24,7 @@
 -(void)keyDown:(NSEvent *)theEvent{
     [keyDelegate keyDown:theEvent]; 
 }
-- (void)flagsChanged:(NSEvent *)theEvent {
-    [keyDelegate flagsChanged:theEvent]; 
-}
+//- (void)flagsChanged:(NSEvent *)theEvent {
+//    [keyDelegate flagsChanged:theEvent]; 
+//}
 @end

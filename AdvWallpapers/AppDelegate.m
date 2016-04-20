@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 
+
 @interface AppDelegate ()
 
 @end
@@ -19,6 +20,8 @@
 @synthesize mainViewController;
 @synthesize statusWindowController;
 @synthesize windowController;
+
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     if (!slideshow) {
         slideshow = [[Slideshow alloc] init];
