@@ -57,6 +57,54 @@
 }
 
 #pragma mark -
+#pragma mark KeyDelegate
+
+-(void)keyDown:(NSEvent *)theEvent{
+    NSString*   const   character   =   [theEvent charactersIgnoringModifiers];
+    unichar     const   code        =   [character characterAtIndex:0];
+    
+    switch (code)
+    {
+        case NSUpArrowFunctionKey:
+        {
+            break;
+        }
+        case NSDownArrowFunctionKey:
+        {
+            break;
+        }
+        case NSLeftArrowFunctionKey:
+        {
+            [self prevImage:nil];
+            break;
+        }
+        case NSRightArrowFunctionKey:
+        {
+            [self nextImage:nil];
+            break;
+        }
+        case 27:
+        {
+//            [self closePanel];
+            break;
+        }
+        case 44:
+        {
+            // if cmd + ,
+            if ([theEvent modifierFlags] & NSCommandKeyMask){
+                NSLog(@"CMD + ,");
+            }
+            break;
+//                [self settingsButtonPressed:nil];
+        }
+        default:
+        {
+            NSLog(@"key: %d", code);
+        }
+    }
+}
+
+#pragma mark -
 #pragma mark IBActions
 
 - (IBAction)nextImage:(id)sender {
@@ -83,6 +131,4 @@
 -(BOOL)pathControl:(NSPathControl *)pathControl acceptDrop:(id<NSDraggingInfo>)info{
     return YES;
 }
-
-
 @end

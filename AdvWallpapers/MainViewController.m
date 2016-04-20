@@ -71,18 +71,6 @@
     [daysTextField setStringValue:@(days).stringValue];
 }
 
-#pragma mark User Interface
-
-- (IBAction)chooseFolderPressed:(id)sender {
-    
-    // Display the dialog.  If the OK button was pressed, process the files.
-    if ([openDlg runModal] == NSModalResponseOK && [[openDlg URLs] count] > 0)
-    {
-        NSString *filename = [openDlg URLs][0].path;
-        [self.slideshow setPath:filename];
-    }
-}
-
 #pragma mark Save
 -(IBAction)apply:(id)sender {
     
@@ -101,6 +89,11 @@
                    @"", self.slideshow.path,
                    @"", seconds];
     
+    // exit if path is null
+    if(self.slideshow.path == NULL)
+        return;
+    
+    
     // execute script
     NSDictionary *errorDict;
     NSAppleScript* scriptObject = [[NSAppleScript alloc] initWithSource:s];
@@ -110,7 +103,6 @@
     
     // save if no error
     if (errorDict == NULL) {
-        NSLog(@"wallpapersPath: %@", self.slideshow.path);
         [self.slideshow setRandom:random];
         [self.slideshow setSeconds:seconds];
         [self.slideshow setRotation:rotation];

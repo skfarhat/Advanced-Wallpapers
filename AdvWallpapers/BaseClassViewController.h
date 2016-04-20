@@ -8,8 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Slideshow.h"
+#import "KeyDelegate.h"
+#import "AdvWallpapers.h"
 
-@interface BaseClassViewController : NSViewController <NSPathControlDelegate> 
+@interface BaseClassViewController : NSViewController <NSPathControlDelegate, KeyDelegate>
 {
     NSInteger index;
     
@@ -23,4 +25,5 @@
 @property (nonatomic, strong) IBOutlet NSPathControl *pathControl;
 @property (nonatomic, strong) IBOutlet NSImageView *imageView;
 
+-(void)refresh; 
 @end
