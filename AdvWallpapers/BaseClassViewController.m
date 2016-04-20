@@ -86,6 +86,7 @@
         case 27:
         {
 //            [self closePanel];
+            [self handleEscape];
             break;
         }
         case 44:
@@ -104,6 +105,11 @@
     }
 }
 
+-(void)handleEscape
+{
+    // do nothing
+    // this method is for to be overridden by child classes
+}
 #pragma mark -
 #pragma mark IBActions
 

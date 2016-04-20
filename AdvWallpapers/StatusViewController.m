@@ -130,6 +130,10 @@
     alreadyOpen = !alreadyOpen;
 }
 
+-(void)handleEscape {
+    [self closePanel];
+}
+
 #pragma mark -
 
 
