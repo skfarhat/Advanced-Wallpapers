@@ -180,15 +180,6 @@
     }
 }
 
-- (IBAction)settingsButtonPressed:(id)sender {
-    // tell app delegate to open the mainview controller
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:NOTIFICATION_SHOW_MAIN_CONTROLLER
-     object:nil
-     userInfo:self.slideshow];
-    [self closePanel];
-}
-
 -(NSInteger) getTimeInterval {
     NSInteger days = [[daysTextField stringValue] intValue];
     NSInteger hours = [[hoursTextField stringValue] intValue] + days * 24;

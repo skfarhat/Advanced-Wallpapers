@@ -911,16 +911,6 @@
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rTV-wV-VLR">
                                 <rect key="frame" x="0.0" y="430" width="300" height="20"/>
                             </customView>
-                            <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cf8-qI-vYz">
-                                <rect key="frame" x="268" y="390" width="32" height="32"/>
-                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="Settings-4" imagePosition="overlaps" alignment="center" inset="2" id="fY2-zf-jdO">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="settingsButtonPressed:" target="PSJ-O0-fq3" id="Azd-Ru-LSQ"/>
-                                </connections>
-                            </button>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TU0-fs-H8q">
                                 <rect key="frame" x="87" y="125" width="126" height="50"/>
                                 <subviews>
@@ -1064,11 +1054,6 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Cf8-qI-vYz" secondAttribute="bottom" constant="340" id="6BL-i0-3rM"/>
-                            <constraint firstAttribute="trailing" secondItem="Cf8-qI-vYz" secondAttribute="trailing" id="fVD-XT-fF9"/>
-                            <constraint firstItem="Cf8-qI-vYz" firstAttribute="leading" secondItem="XS3-im-MM4" secondAttribute="leading" constant="268" id="mEk-5i-qoN"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="daysTextField" destination="6Rb-8e-9iI" id="5fc-XA-wdv"/>
@@ -1087,7 +1072,4 @@
             <point key="canvasLocation" x="362" y="1259"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Settings-4" width="22.5" height="22.5"/>
-    </resources>
 </document>
