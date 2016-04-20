@@ -24,21 +24,19 @@
 @end
 
 @implementation StatusViewController
-@synthesize slideshow;
-@synthesize pathControl;
-@synthesize imageView;
 @synthesize statusMainView;
+@synthesize daysTextField, hoursTextField, minTextField, secTextField;
+@synthesize randomCheckbox, rotationComboBox;
 
 -(id)initWithCoder:(NSCoder *)coder{
-
+    
     self  = [super initWithCoder: coder];
     if (self)
     {
-        IMAGE_EXTENSIONS = @[@"jpg", @"JPG", @"jpeg", @"JPEG", @"png", @"PNG", @"BMP", @"bmp",
-                             @"tiff", @"TIFF"];
         NSImage *img = [NSImage imageNamed:@"instagram"];
         
-        statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:STATUS_ITEM_VIEW_WIDTH];
+        statusItem = [[NSStatusBar systemStatusBar]
+                      statusItemWithLength:STATUS_ITEM_VIEW_WIDTH];
         [statusItem setHighlightMode:YES];
         [statusItem setImage:img];
         [statusItem setAction:@selector(togglePanel:)];
@@ -58,66 +56,18 @@
     return self;
 }
 
--(BOOL)acceptsFirstResponder{
-    return YES; 
-}
-
 -(void)viewDidLoad{
     [super viewDidLoad];
-
+    
     // TODO: might be unnecessary
     [statusMainView setKeyDelegate:self];
     
-}
-- (void)flagsChanged:(NSEvent *)theEvent {
-    commandDown = false;
     
-    // command pressed
-    if ([theEvent modifierFlags] & NSCommandKeyMask) {
-        commandDown = true;
-    }
-}
-
--(void)keyDown:(NSEvent *)theEvent{
-    NSString*   const   character   =   [theEvent charactersIgnoringModifiers];
-    unichar     const   code        =   [character characterAtIndex:0];
-    
-    switch (code)
-    {
-        case NSUpArrowFunctionKey:
-        {
-            break;
-        }
-        case NSDownArrowFunctionKey:
-        {
-            break;
-        }
-        case NSLeftArrowFunctionKey:
-        {
-            [self prevImageButtonPressed:nil];
-            //            [self navigateToPreviousImage];
-            break;
-        }
-        case NSRightArrowFunctionKey:
-        {
-            [self nextImageButtonPressed:nil];
-            //            [self navigateToNextImage];
-            break;
-        }
-        case 27:
-        {
-            [self closePanel];
-            break;
-        }
-        case 44:
-        {
-            if (commandDown) [self settingsButtonPressed:nil];
-        }
-        default:
-        {
-            NSLog(@"key: %d", code);
-        }
-    }
+    NSArray *rotationStrings = [NSArray arrayWithObjects:
+                       @"Off", @"Interval", @"Login", @"Sleep", nil];
+    [rotationComboBox addItemsWithObjectValues:rotationStrings];
+    if ([rotationStrings count] > 0)
+        [rotationComboBox selectItemAtIndex:0];
 }
 
 #pragma mark -
@@ -169,11 +119,10 @@
         
         [self.view.window orderOut:nil];
     });
-    [self.view.window makeFirstResponder:nil]; 
+    [self.view.window makeFirstResponder:nil];
 }
 
 - (IBAction)togglePanel:(id)sender {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     
     if (alreadyOpen)    [self closePanel];
     else                [self openPanel];
@@ -194,41 +143,10 @@
     return statusRect;
 }
 
--(void)refresh {
-    filenames = [[NSFileManager defaultManager]
-                 contentsOfDirectoryAtPath:slideshow.path
-                 error:nil];
-    filenames = [filenames filteredArrayUsingPredicate:
-                 [NSPredicate predicateWithFormat:@"(pathExtension IN %@)", IMAGE_EXTENSIONS]];
-    
-    // update imageview
-    NSString *imagePath = [NSString stringWithFormat:@"%@/%@",
-                           slideshow.path, filenames[index]];
-    NSImage *image =[[NSImage alloc] initWithContentsOfFile:imagePath];
-    [imageView setImage:image];
-    
-    // update path control
-    [pathControl setURL:[NSURL URLWithString:slideshow.path]];
-}
-
-- (IBAction)prevImageButtonPressed:(id)sender {
-    if (index-- == 0) {
-        index = [filenames count] - 1;
-    }
-    
-    [self refresh];
-}
-
-- (IBAction)nextImageButtonPressed:(id)sender {
-    if (index++ == [filenames count] - 1) {
-        index = 0;
-    }
-    
-    [self refresh];
-}
-
-- (IBAction)applyButtonPressed:(id)sender {
-    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:@"SetDesktopPicture" ofType:@"applescript"];
+- (IBAction)setCurrent:(id)sender {
+    NSString *scriptPath = [[NSBundle mainBundle]
+                            pathForResource:APPLESCRIPT_SET_DESKTOP_PICTURE
+                            ofType:@"applescript"];
     NSString *contents = [NSString stringWithContentsOfFile:scriptPath encoding:
                           NSUTF8StringEncoding error:nil];
     NSString *s = [NSString stringWithFormat:contents, [self getcurrentFilename]];
@@ -237,37 +155,91 @@
     [scriptObject executeAndReturnError: &errorDict];
 }
 
-- (IBAction)settingsButtonPressed:(id)sender {
-    // tell app delegate to open the mainview controller
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"showMainViewController"
-                                                        object:nil userInfo:slideshow];
-    [self closePanel]; 
+- (IBAction)optionChanged:(id)sender {
+    if ([[rotationComboBox stringValue] isEqualToString:@"Interval"])
+    {
+       // enable fields
+        [daysTextField setEnabled:YES];
+        [hoursTextField setEnabled:YES];
+        [minTextField setEnabled:YES];
+        [secTextField setEnabled:YES];
+        [randomCheckbox setEnabled:YES];
+    }
+    else
+    {
+        // disable fields
+        [daysTextField setEnabled:NO];
+        [hoursTextField setEnabled:NO];
+        [minTextField setEnabled:NO];
+        [secTextField setEnabled:NO];
+        [randomCheckbox setEnabled:NO];
+    }
 }
 
--(void)setSlideshow:(Slideshow *)slideshow1{
-    slideshow = slideshow1;
-    [self refresh];
+- (IBAction)settingsButtonPressed:(id)sender {
+    // tell app delegate to open the mainview controller
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SHOW_MAIN_CONTROLLER
+                                                        object:nil userInfo:self.slideshow];
+    [self closePanel];
+}
+
+-(NSInteger) getTimeInterval {
+    NSInteger days = [[daysTextField stringValue] intValue];
+    NSInteger hours = [[hoursTextField stringValue] intValue] + days * 24;
+    NSInteger minutes = [[minTextField stringValue] intValue] + hours * 60;
+    NSInteger seconds = [[secTextField stringValue] intValue] + minutes * 60;
+    return seconds;
+}
+
+- (IBAction)closeWindow:(id)sender {
+    [self closePanel];
+}
+
+-(IBAction)apply:(id)sender {
+    
+    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:APPLESCRIPT_CURRENT_DESKTOP ofType:@"applescript"];
+    NSString *contents = [NSString stringWithContentsOfFile:scriptPath encoding:
+                          NSUTF8StringEncoding error:nil];
+    NSString *rotation = @([rotationComboBox indexOfSelectedItem]).stringValue;
+    NSString *seconds = @([self getTimeInterval]).stringValue;
+    NSString *random =  ([randomCheckbox state] == true)? @"true" : @"false";
+    
+    NSAssert(contents != NULL, @"contents can't be null...");
+    
+    NSString *s = [NSString stringWithFormat:contents,
+                   @"", rotation,
+                   @"", random,
+                   @"", self.slideshow.path,
+                   @"", seconds];
+    
+    // exit if path is null
+    if(self.slideshow.path == NULL)
+        return;
+    
+    
+    // execute script
+    NSDictionary *errorDict;
+    NSAppleScript* scriptObject = [[NSAppleScript alloc] initWithSource:s];
+    [scriptObject executeAndReturnError: &errorDict];
+    
+    NSLog(@"%@", errorDict.description);
+    
+    // save if no error
+    if (errorDict == NULL) {
+        [self.slideshow setRandom:random];
+        [self.slideshow setSeconds:seconds];
+        [self.slideshow setRotation:rotation];
+        [self.slideshow save];
+    }
 }
 
 /** returns the fullpath to the currently selected image */
 -(NSString*)getcurrentFilename {
-    return [NSString stringWithFormat:@"%@/%@", slideshow.path, filenames[index]];
+    return [NSString stringWithFormat:@"%@/%@", self.slideshow.path, self.filenames[index]];
 }
 
-#pragma mark -
-#pragma mark PathControl 
-
-
--(BOOL)pathControl:(NSPathControl *)pathControl acceptDrop:(id<NSDraggingInfo>)info{
+-(BOOL)acceptsFirstResponder{
     return YES;
 }
-- (IBAction)pathControlClicked:(id)sender {
-    NSURL *url = [pathControl objectValue];
-    [slideshow setPath:url.path];
-    [slideshow save];
-    [self refresh];
-}
-
-
 
 @end

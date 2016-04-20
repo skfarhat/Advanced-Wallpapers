@@ -11,27 +11,27 @@
 #import "Slideshow.h"
 #import "KeyDelegate.h"
 #import "StatusMainView.h"
+#import "BaseClassViewController.h"
 
-@interface StatusViewController : NSViewController <KeyDelegate, NSPathControlDelegate> {
+
+@interface StatusViewController : BaseClassViewController <KeyDelegate> {
     
-    const NSArray *IMAGE_EXTENSIONS;
     StatusView *statusView; 
     NSStatusItem *statusItem;
     BOOL alreadyOpen;
-    
-    // index to data
-    NSInteger index;
-    
-    // data
-    NSArray<NSString*> *filenames;
-    
+
     BOOL commandDown; 
 }
+
 @property (strong) IBOutlet StatusMainView *statusMainView;
 
-@property(nonatomic, strong) Slideshow *slideshow;
-@property (weak) IBOutlet NSImageView *imageView;
-@property (weak) IBOutlet NSPathControl *pathControl;
+@property (strong) IBOutlet NSButton *randomCheckbox;
+@property (strong) IBOutlet NSComboBox *rotationComboBox;
+@property (strong) IBOutlet NSTextField *daysTextField;
+@property (strong) IBOutlet NSTextField *hoursTextField;
+@property (strong) IBOutlet NSTextField *minTextField;
+@property (strong) IBOutlet NSTextField *secTextField;
+
 
 -(void)openPanel;
 
