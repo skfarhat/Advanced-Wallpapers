@@ -17,9 +17,11 @@
 @property (nonnull, strong) NSString *rotation;
 @property (nonnull, strong) NSString *random;
 @property (nonnull, strong) NSString *seconds;
+@property (nullable, strong) NSDate *lastUpdate;
 
 /** */
 -(Slideshow*)init;
 
 -(void) save;
+
 @end

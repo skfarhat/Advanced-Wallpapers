@@ -15,6 +15,7 @@
 @synthesize rotation;
 @synthesize random;
 @synthesize seconds;
+@synthesize lastUpdate;
 
 -(Slideshow*)init {
     self = [super init];
@@ -26,29 +27,19 @@
     seconds     = [plist valueForKey:KEY_LAST_INTERVAL_SEC];
     rotation    = [plist valueForKey:KEY_LAST_ROTATION];
     path        = [plist valueForKey:KEY_LAST_DIRECTORY];
+    lastUpdate  = [plist valueForKey:KEY_LAST_UPDATE];
     
     return self;
 }
-
--(void)save:(NSString*)path1
-      random:(NSString*)random1
-     seconds:(NSString*)seconds1
-    rotation:(NSString*)rotation1 {
-    path = path1;
-    random = random1;
-    seconds = seconds1;
-    rotation = rotation1;
+-(void) save {
     
     [plist setValue:path forKey:KEY_LAST_DIRECTORY];
     [plist setValue:random forKey:KEY_LAST_RANDOM];
     [plist setValue:rotation forKey:KEY_LAST_ROTATION];
     [plist setValue:seconds forKey:KEY_LAST_INTERVAL_SEC];
+    [plist setValue:lastUpdate.description forKey:KEY_LAST_UPDATE];
     
-    [plist writeToFile:plistPath atomically:YES];
-}
-
--(void) save {
-    return [self save:path random:random seconds:seconds rotation:rotation];
+    [plist writeToFile:plistPath atomically:YES];    
 }
 
 @end

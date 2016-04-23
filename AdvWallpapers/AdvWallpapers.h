@@ -25,7 +25,7 @@
 #define KEY_LAST_INTERVAL_SEC   @"Last_Interval"
 #define KEY_LAST_RANDOM         @"Last_Random"
 #define KEY_LAST_ROTATION       @"Last_Rotation"
-
+#define KEY_LAST_UPDATE         @"Last_Update"
 
 
 #endif /* AdvWallpapers_h */
