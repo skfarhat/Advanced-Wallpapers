@@ -25,14 +25,6 @@
 
 @property (strong) IBOutlet StatusMainView *statusMainView;
 
-@property (strong) IBOutlet NSButton *randomCheckbox;
-@property (strong) IBOutlet NSComboBox *rotationComboBox;
-@property (strong) IBOutlet NSTextField *daysTextField;
-@property (strong) IBOutlet NSTextField *hoursTextField;
-@property (strong) IBOutlet NSTextField *minTextField;
-@property (strong) IBOutlet NSTextField *secTextField;
-
-
 -(void)openPanel;
 
 @end

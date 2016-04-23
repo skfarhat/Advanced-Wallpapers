@@ -25,8 +25,6 @@
 @implementation StatusViewController
 
 @synthesize statusMainView;
-@synthesize daysTextField, hoursTextField, minTextField, secTextField;
-@synthesize randomCheckbox, rotationComboBox;
 
 -(id)initWithCoder:(NSCoder *)coder {
     
@@ -61,13 +59,7 @@
     
     // TODO: might be unnecessary
     [statusMainView setKeyDelegate:self];
-    
-    
-    NSArray *rotationStrings = [NSArray arrayWithObjects:
-                                @"Off", @"Interval", @"Login", @"Sleep", nil];
-    [rotationComboBox addItemsWithObjectValues:rotationStrings];
-    if ([rotationStrings count] > 0)
-        [rotationComboBox selectItemAtIndex:0];
+
 }
 
 #pragma mark -
@@ -146,6 +138,7 @@
 }
 
 - (IBAction)setCurrent:(id)sender {
+    
     NSString *scriptPath = [[NSBundle mainBundle]
                             pathForResource:APPLESCRIPT_SET_DESKTOP_PICTURE
                             ofType:@"applescript"];
@@ -155,35 +148,60 @@
     NSDictionary *errorDict;
     NSAppleScript* scriptObject = [[NSAppleScript alloc] initWithSource:s];
     [scriptObject executeAndReturnError: &errorDict];
+    
+    // TODO: reset the interface to Off
+    [self resetUI];
+}
+
+
+-(void) enableFields:(BOOL)enable {
+    [self.daysTextField setEnabled:enable];
+    [self.hoursTextField setEnabled:enable];
+    [self.minTextField setEnabled:enable];
+    [self.secTextField setEnabled:enable];
+    [self.randomCheckbox setEnabled:enable];
 }
 
 - (IBAction)optionChanged:(id)sender {
-    if ([[rotationComboBox stringValue] isEqualToString:@"Interval"])
+    if ([[self.rotationComboBox stringValue] isEqualToString:@"Interval"])
     {
-        // enable fields
-        [daysTextField setEnabled:YES];
-        [hoursTextField setEnabled:YES];
-        [minTextField setEnabled:YES];
-        [secTextField setEnabled:YES];
-        [randomCheckbox setEnabled:YES];
+        [self enableFields:YES];
     }
     else
     {
-        // disable fields
-        [daysTextField setEnabled:NO];
-        [hoursTextField setEnabled:NO];
-        [minTextField setEnabled:NO];
-        [secTextField setEnabled:NO];
-        [randomCheckbox setEnabled:NO];
+        [self enableFields:NO];
     }
 }
 
--(NSInteger) getTimeInterval {
-    NSInteger days = [[daysTextField stringValue] intValue];
-    NSInteger hours = [[hoursTextField stringValue] intValue] + days * 24;
-    NSInteger minutes = [[minTextField stringValue] intValue] + hours * 60;
-    NSInteger seconds = [[secTextField stringValue] intValue] + minutes * 60;
+-(NSInteger)getTimeInterval {
+    NSInteger days = [[self.daysTextField stringValue] intValue];
+    NSInteger hours = [[self.hoursTextField stringValue] intValue] + days * 24;
+    NSInteger minutes = [[self.minTextField stringValue] intValue] + hours * 60;
+    NSInteger seconds = [[self.secTextField stringValue] intValue] + minutes * 60;
     return seconds;
+}
+-(NSDictionary*)getTimeComponents:(NSInteger) seconds {
+    NSInteger totalSec = seconds;
+    
+    const NSInteger SEC_PER_MIN = 60;
+    const NSInteger SEC_PER_HOUR = 3600;
+    const NSInteger SEC_PER_DAY = SEC_PER_HOUR * 24;
+    
+    NSInteger days = totalSec / SEC_PER_DAY;
+    totalSec -= days * SEC_PER_DAY;
+    NSInteger hours = totalSec / SEC_PER_HOUR;
+    totalSec -= hours * SEC_PER_HOUR;
+    NSInteger min = totalSec / SEC_PER_MIN;
+    NSInteger sec = totalSec - min * SEC_PER_MIN;
+    NSArray *objects = @[
+                         [NSNumber numberWithInteger:days],
+                         [NSNumber numberWithInteger:hours],
+                         [NSNumber numberWithInteger:min],
+                         [NSNumber numberWithInteger:sec],
+                         ];
+    NSArray *keys = @[@"days", @"hours", @"min", @"sec"];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    return dict;
 }
 
 - (IBAction)closeWindow:(id)sender {
@@ -195,10 +213,10 @@
     NSString *scriptPath = [[NSBundle mainBundle] pathForResource:APPLESCRIPT_CURRENT_DESKTOP ofType:@"applescript"];
     NSString *contents = [NSString stringWithContentsOfFile:scriptPath encoding:
                           NSUTF8StringEncoding error:nil];
-    NSString *rotation = @([rotationComboBox indexOfSelectedItem]).stringValue;
+    NSString *rotation = @([self.rotationComboBox indexOfSelectedItem]).stringValue;
     NSInteger seconds = [self getTimeInterval];
     NSString *secondsStr = @(seconds).stringValue;
-    NSString *random =  ([randomCheckbox state] == true)? @"true" : @"false";
+    NSString *random =  @(self.randomCheckbox.state).stringValue;
     
     NSAssert(contents != NULL, @"contents can't be null...");
     
@@ -247,8 +265,28 @@
         [self.slideshow setRandom:random];
         [self.slideshow setSeconds:secondsStr];
         [self.slideshow setRotation:rotation];
+        [self.slideshow setLastUpdate:[NSDate date]];
         [self.slideshow save];
     }
+}
+
+-(void)refresh {
+    [super refresh];
+    NSDictionary *timeDict = [self getTimeComponents:self.slideshow.seconds.integerValue];
+    [self.daysTextField setStringValue:timeDict[@"days"]];
+    [self.hoursTextField setStringValue:timeDict[@"hours"]];
+    [self.minTextField setStringValue:timeDict[@"min"]];
+    [self.secTextField setStringValue:timeDict[@"sec"]];
+    [self updateRotationCombobox];
+    [self optionChanged:nil];
+    [self updateRandomCheckbox];
+
+}
+-(void) resetUI {
+    if (self.rotationComboBox && self.rotationComboBox.numberOfItems > 1)
+        [self.rotationComboBox selectItemAtIndex:0];
+    
+    [self enableFields:NO];
 }
 
 /** returns the fullpath to the currently selected image */

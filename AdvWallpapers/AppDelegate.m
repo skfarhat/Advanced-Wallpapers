@@ -23,6 +23,7 @@
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    
     if (!slideshow) {
         slideshow = [[Slideshow alloc] init];
     }
@@ -62,13 +63,5 @@
     // set the slideshow on the MainViewControlller
     [windowController showWindow:windowController.self];
 }
-//
-//-(void)setMainViewController:(MainViewController *)mainViewController1 {
-//    if (!slideshow) {
-//        slideshow = [[Slideshow alloc] init];
-//    }
-//    mainViewController = mainViewController1;
-//    [self.mainViewController setSlideshow:slideshow];
-//}
 
 @end

@@ -1,6 +1,6 @@
 //
 //  BaseClassViewController.m
-//  AdvWallpapers
+//   
 //
 //  Created by Sami Farhat on 18/04/2016.
 //  Copyright © 2016 Sami Farhat. All rights reserved.
@@ -19,12 +19,20 @@
 // UI
 @synthesize imageView;
 @synthesize pathControl;
+@synthesize randomCheckbox, rotationComboBox;
+@synthesize daysTextField, hoursTextField, secTextField, minTextField;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     index = 0;
     IMAGE_EXTENSIONS = @[@"jpg", @"JPG", @"jpeg", @"JPEG", @"png", @"PNG", @"BMP", @"bmp",
                          @"tiff", @"TIFF"];
+    
+    NSArray *rotationStrings = [NSArray arrayWithObjects:
+                                @"Off", @"Interval", @"Login", @"Sleep", nil];
+    [self.rotationComboBox addItemsWithObjectValues:rotationStrings];
+    if ([rotationStrings count] > 0)
+        [self.rotationComboBox selectItemAtIndex:0];
 }
 
 -(void)refresh {
@@ -38,6 +46,7 @@
     [self updateImageView];
     
     [pathControl setURL:[NSURL URLWithString:slideshow.path]];
+    
 }
 
 -(void) updateImageView {
@@ -95,10 +104,28 @@
     }
 }
 
--(void)handleEscape
-{
+-(void)handleEscape {
     // do nothing
     // this method is to be overridden by child classes
+}
+
+-(void)updateRotationCombobox {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    NSInteger i =  slideshow.rotation.integerValue;
+    NSLog(@"%ld %@", i, slideshow.rotation);
+    if ( i > -1 && i < rotationComboBox.numberOfItems) {
+        [rotationComboBox selectItemAtIndex:i];
+    }
+}
+
+-(void)updateRandomCheckbox {
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    NSInteger i = self.slideshow.random.integerValue;
+    NSLog(@"index; %ld", i);
+    if (i == 0 || i == 1) {
+        [randomCheckbox setState:i];
+    }
 }
 
 #pragma mark -
