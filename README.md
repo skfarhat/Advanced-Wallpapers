@@ -1,5 +1,3 @@
-#README
-
 Adv. Wallpapers is an OS X application that allows users more advanced customization of wallpapers.
 
 Adv. Wallpapers provides a neat interface wrapper around some of the Desktop Background customizations that Apple only allows using AppleScript or JavaScript.
